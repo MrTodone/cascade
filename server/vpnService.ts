@@ -13,8 +13,9 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import crypto from "node:crypto";
-import { execFile } from "node:child_process";
+import { execFile, spawn, type ChildProcess } from "node:child_process";
 import { probeNodes } from "../scripts/probe-core.mjs";
+import { appPath } from "./runtime";
 
 // Task 11: transports the installed sing-box (1.14.1 on this host) cannot parse
 // at all — `sing-box check` exits FATAL ("unknown transport type: xhttp").
@@ -22,6 +23,15 @@ import { probeNodes } from "../scripts/probe-core.mjs";
 // the universal pre-flight check below (level 2) catches ANY future unsupported
 // field sing-box rejects, not just these.
 const UNSUPPORTED_TRANSPORTS = ["xhttp"];
+
+// Задача 37: резолюция бинаря sing-box по платформе. В compiled-exe на Windows —
+// sing-box.exe рядом с cascade.exe; в dev/macOS — системный (SGBOX — явная
+// перегрузка для тестов).
+function singboxBin(): string {
+  if (process.env.SGBOX) return process.env.SGBOX;
+  if (process.platform === "win32") return appPath("sing-box.exe");
+  return "/opt/homebrew/bin/sing-box";
+}
 
 export interface VlessNode {
   id: string;
@@ -76,7 +86,7 @@ export interface VpnStatus {
 // (cascade-run/router/config.json → vpn.subscriptionUrl). No URL is hardcoded
 // in code: an empty/missing value disables the relay gracefully (direct
 // providers keep working). See configs/router.config.example.json.
-const ROUTER_CONFIG_PATH = path.join(process.cwd(), "cascade-run", "router", "config.json");
+const ROUTER_CONFIG_PATH = appPath("cascade-run", "router", "config.json");
 
 function loadSubscriptionUrlFromConfig(): string {
   try {
@@ -137,12 +147,12 @@ class VpnService {
   private egressProbing = false;
   private egressProbeById: Map<string, { ok: boolean; latencyMs: number; loc: string; checkedAt: string }> = new Map();
   private lastEgressProbe: { total: number; ok: number; checkedAt: string } | null = null;
-  private readonly vpnEgressProbePath = path.join(process.cwd(), "cascade-run", "vpn-egress-probe.json");
+  private readonly vpnEgressProbePath = appPath("cascade-run", "vpn-egress-probe.json");
 
-  private readonly singboxConfigPath = path.join(process.cwd(), "cascade-run", "singbox.json");
-  private readonly singboxBakOrig = path.join(process.cwd(), "cascade-run", "singbox.json.bak-orig");
-  private readonly singboxPreApply = path.join(process.cwd(), "cascade-run", "singbox.json.pre-apply");
-  private readonly tunnelStatePath = path.join(process.cwd(), "cascade-run", "tunnel-state.json");
+  private readonly singboxConfigPath = appPath("cascade-run", "singbox.json");
+  private readonly singboxBakOrig = appPath("cascade-run", "singbox.json.bak-orig");
+  private readonly singboxPreApply = appPath("cascade-run", "singbox.json.pre-apply");
+  private readonly tunnelStatePath = appPath("cascade-run", "tunnel-state.json");
 
   constructor() {
     // Subscription source is config-only (vpn.subscriptionUrl). Empty/missing →
@@ -172,7 +182,7 @@ class VpnService {
     // Initial live sync + egress probe + benchmark, then make sure the tunnel
     // is real. Skipped entirely when no subscription URL is configured.
     if (this.enabled && this.subscriptionUrl) {
-      this.syncFromSubscription()
+      this.syncFromGitLab()
         .then(async () => {
           await this.runBackgroundEgressProbe();
           await this.benchmarkAllNodes();
@@ -259,7 +269,7 @@ class VpnService {
       if (this.autoSyncEnabled && this.enabled && this.subscriptionUrl) {
         console.log(`[VPN Service] ⏰ Running hourly RAW subscription update from: ${this.subscriptionUrl}`);
         try {
-          await this.syncFromSubscription();
+          await this.syncFromGitLab();
           // After hourly sync: egress-probe every line, then benchmark,
           // then make sure the applied sing-box tunnel is actually alive.
           await this.runBackgroundEgressProbe();
@@ -411,7 +421,7 @@ class VpnService {
   /**
    * Real-time sync from RAW subscription URL
    */
-  public async syncFromSubscription(customUrl?: string): Promise<{ success: boolean; count: number; updated: string }> {
+  public async syncFromGitLab(customUrl?: string): Promise<{ success: boolean; count: number; updated: string }> {
     const url = (customUrl || this.subscriptionUrl).trim();
     if (!url) {
       throw new Error("Subscription URL is not configured (set vpn.subscriptionUrl in cascade-run/router/config.json)");
@@ -436,7 +446,7 @@ class VpnService {
     // (hourly diffs: which lines were added/removed). Same secret-density as
     // cascade-run/singbox.json — local only.
     try {
-      fs.writeFileSync(path.join(process.cwd(), "cascade-run", "vpn-subscription-cache.txt"), text);
+      fs.writeFileSync(appPath("cascade-run", "vpn-subscription-cache.txt"), text);
     } catch (e: any) {
       console.warn("[VPN Service] subscription cache write failed:", e?.message || e);
     }
@@ -816,6 +826,7 @@ class VpnService {
   }
 
   private restartTunnel(): Promise<void> {
+    if (process.platform === "win32") return this.restartTunnelWin32();
     return new Promise((resolve, reject) => {
       const uid = typeof process.getuid === "function" ? process.getuid() : os.userInfo().uid;
       execFile("/bin/launchctl", ["kickstart", "-k", `gui/${uid}/${this.singboxServiceLabel}`], (err) => {
@@ -823,6 +834,46 @@ class VpnService {
         else resolve();
       });
     });
+  }
+
+  // Windows (задача 37): launchd нет — sing-box держится как дочерний процесс
+  // (sing-box.exe рядом с cascade.exe). Замена процессу = kill + spawn того же
+  // конфига cascade-run/singbox.json (полная параллель launchd-семантике,
+  // строка запуска эквивалентна плейсту: `<SINGBOX_BIN> run -D cascade-run -c singbox.json`).
+  private singboxProc: ChildProcess | null = null;
+
+  private restartTunnelWin32(): Promise<void> {
+    if (this.singboxProc !== null && this.singboxProc.exitCode === null) {
+      try {
+        this.singboxProc.kill();
+      } catch {
+        /* already dead */
+      }
+      this.singboxProc = null;
+    }
+    return new Promise((resolve) => {
+      try {
+        fs.mkdirSync(appPath("cascade-run"), { recursive: true });
+        const proc = spawn(
+          singboxBin(),
+          ["run", "-D", appPath("cascade-run"), "-c", "singbox.json"],
+          { cwd: appPath("cascade-run"), stdio: "ignore", windowsHide: true }
+        );
+        proc.on("exit", () => {
+          if (this.singboxProc === proc) this.singboxProc = null;
+        });
+        this.singboxProc = proc;
+      } catch {
+        /* the tunnel simply stays down on spawn failure */
+      }
+      resolve();
+    });
+  }
+
+  /** Статус процесса sing-box (Windows): жив/упал. */
+  isTunnelProcessAlive(): boolean {
+    if (process.platform !== "win32") return false;
+    return this.singboxProc !== null && this.singboxProc.exitCode === null;
   }
 
   // Task 11: host:port for logs with the host masked (no full IP leakage).
@@ -842,7 +893,7 @@ class VpnService {
         return resolve({ ok: false, reason: "tmp config write failed" });
       }
       execFile(
-        "/opt/homebrew/bin/sing-box",
+        singboxBin(),
         ["check", "-c", tmp],
         { timeout: 5000, maxBuffer: 64 * 1024 },
         (err, stdout, stderr) => {

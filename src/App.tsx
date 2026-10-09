@@ -15,6 +15,7 @@ import { CodePlayground } from './components/CodePlayground';
 import { FreeProvidersGuide } from './components/FreeProvidersGuide';
 import { VpnManagerModal } from './components/VpnManagerModal';
 import { RoutingPanel } from './components/RoutingPanel';
+import FirstRunWizard from './components/FirstRunWizard';
 import { 
   Sparkles, 
   RefreshCw, 
@@ -34,6 +35,18 @@ export default function App() {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
   const [sourcesStats, setSourcesStats] = useState({ openrouterCount: 0, totalFree: FALLBACK_FREE_MODELS.length });
+
+  // First-run wizard gate (Task 37): hidden once the router has keys.
+  const [needsSetup, setNeedsSetup] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    fetch('/api/setup/status')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && d.needsSetup !== undefined) setNeedsSetup(!!d.needsSetup);
+      })
+      .catch(() => {});
+  }, []);
   
   // Navigation & Modals
   const [activeTab, setActiveTab] = useState<'catalog' | 'playground' | 'strategy' | 'guide'>('catalog');
@@ -417,6 +430,10 @@ export default function App() {
 
     return result;
   }, [models, searchQuery, selectedProvider, selectedTag, minScore, sortBy]);
+
+  if (needsSetup) {
+    return <FirstRunWizard onDone={() => { setNeedsSetup(false); window.location.reload(); }} />;
+  }
 
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans selection:bg-emerald-500/30 selection:text-emerald-200">

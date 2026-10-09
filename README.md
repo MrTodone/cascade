@@ -81,7 +81,19 @@ bun run dev
 curl http://localhost:3000/v1/models
 ```
 
-**First-run without config:** the facade starts, but the router engine never boots — the config loader fails with an ENOENT and `/v1` answers **503**. That is why step 1 is mandatory.
+**First-run without config:** since v0.2.0 the facade shows the **first-run
+wizard** (`GET /api/setup/status` → `GET /api/setup/apply`); it writes
+`cascade-run/router/config.json` + `.env` from the values you paste, then
+restarts the router engine.
+
+**Windows (v0.2.0+):** download `cascade-v0.2.0-windows-x64.zip` from the
+[Releases](https://github.com/MrTodone/cascade/releases) page, unpack anywhere,
+double-click `START-Cascade.cmd`. On first launch Windows SmartScreen shows
+"Windows protected your PC" — click **More info → Run anyway** (the app is
+unsigned; it is the file you downloaded from this repository). The browser
+opens http://localhost:3000 with the first-run wizard: paste API keys for at
+least one provider, save, and the dashboard starts routing. Details:
+`README-WINDOWS.txt` in the zip.
 
 Point your agent at `http://localhost:3000/v1` and you are done.
 
@@ -208,9 +220,9 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Do I need API keys?** Only for the providers you want to use — they are free-tier models. A provider without a key is simply inactive.
 
-**Does it work without VPN / sing-box?** Yes. Direct providers work immediately; geo-blocked ones gracefully fall over through the cascade. The relay starts only when `vpn.subscriptionUrl` is configured.
+**Does it work without VPN / sing-box?** Yes. Direct providers work immediately; geo-blocked ones gracefully fall over through the cascade. The relay starts only when `vpn.subscriptionUrl` is configured. On Windows the dashboard panels for VPN sync/pause/stop manage `sing-box.exe` as a child process of `cascade.exe` (no services installed); live egress on Windows is not exercised in CI — a failing subscription node disables the relay gracefully and direct providers keep working.
 
-**Which OS?** macOS — full functionality, including launchd service templates (`configs/launchd/`). Linux and Windows — the core gateway (facade :3000 + router :19080) runs natively: Bun ships official builds for both. The tunnel is a native sing-box binary on all three, but service management is launchd-based and is not implemented outside macOS in v1 — start sing-box manually, or wire it into systemd / Task Scheduler / NSSM yourself. The project is developed and regression-tested on macOS; Linux and Windows are expected to work for the core gateway but are not covered by the regression suite.
+**Which OS?** macOS — full functionality, including launchd service templates (`configs/launchd/`). Linux — the core gateway (facade :3000 + router :19080) runs natively via Bun; the tunnel is manual in v1. **Windows v0.2.0+** — official release build: `cascade.exe` (dashboard) + `cascade-router.exe` (router core) in a zip from GitHub Releases, with bundled `sing-box.exe`, a first-run wizard in the dashboard, and `START-Cascade.cmd` to launch. Service management (launchd) is macOS-only in v1; on Linux/Windows start sing-box manually or wire it into systemd / Task Scheduler / NSSM. The project is developed and regression-tested on macOS; Linux and Windows are expected to work for the core gateway but are not covered by the regression suite.
 
 **Are my keys safe?** They stay local, on a loopback-only backend; the dashboard never receives them.
 

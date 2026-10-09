@@ -1,16 +1,22 @@
 import express from "express";
 import type { Request, Response, NextFunction } from "express";
 import path from "path";
-import { createServer as createViteServer } from "vite";
+import fs from "node:fs";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { vpnService } from "./server/vpnService";
-import { cascadeRouterProxy, ensureRouterDaemon, startRouterHealthLoop } from "./server/routerService";
+import { cascadeRouterProxy, ensureRouterDaemon, startRouterHealthLoop, restartRouterDaemon, CASCADE_ROUTER_PORT } from "./server/routerService";
+import { appPath, detectCompiled } from "./server/runtime";
 
-dotenv.config();
+detectCompiled();
+// Compiled single-exe (cascade.exe) никогда не использует Vite dev-middleware —
+// только статику dist/ рядом с exe. Runtime-выбор делается входной точкой
+// (exe-entry / dev-entry), а не NODE_ENV-веткой, поэтому vite в бинарь не попадает.
+
+dotenv.config({ path: appPath(".env") });
 
 const app = express();
-const PORT = 3000;
+const PORT = Number(process.env.CASCADE_PORT || process.env.PORT || 3000);
 
 app.use(express.json({ limit: "100mb" }));
 
@@ -33,7 +39,7 @@ function routerProviderKeyFromCatalogId(id: string): string | null {
 
 async function fetchActiveRouterSet(): Promise<{ provider: string; model: string }[]> {
   try {
-    const res = await fetch(`http://127.0.0.1:19080/stats`, { signal: AbortSignal.timeout(4000) });
+    const res = await fetch(`http://127.0.0.1:${CASCADE_ROUTER_PORT}/stats`, { signal: AbortSignal.timeout(4000) });
     if (res.ok) {
       const data: any = await res.json();
       const models: any[] = data?.models || [];
@@ -46,7 +52,7 @@ async function fetchActiveRouterSet(): Promise<{ provider: string; model: string
   }
   try {
     const fs = require("node:fs") as typeof import("node:fs");
-    const cfg = JSON.parse(fs.readFileSync(path.join(process.cwd(), "cascade-run", "router", "config.json"), "utf8"));
+    const cfg = JSON.parse(fs.readFileSync(appPath("cascade-run", "router", "config.json"), "utf8"));
     const active = cfg?.router?.activeSet || "fast-coding";
     return (cfg?.router?.sets?.[active]?.models || []).map((m: any) => ({ provider: m.provider, model: m.model }));
   } catch {
@@ -115,7 +121,7 @@ interface RoutingOverride {
   pinnedPin: string | null;
   updatedAt: string;
 }
-const ROUTING_OVERRIDE_FILE = path.join(process.cwd(), "cascade-run", "routing-override.json");
+const ROUTING_OVERRIDE_FILE = appPath("cascade-run", "routing-override.json");
 
 function readRoutingOverride(): RoutingOverride {
   try {
@@ -173,7 +179,7 @@ async function fetchRoutingStats(): Promise<RoutingStatsSnapshot> {
   if (routingStatsCache && Date.now() - routingStatsCache.ts < ROUTING_STATS_TTL_MS) return routingStatsCache.snap;
   const empty: RoutingStatsSnapshot = { ok: false, activeSet: "", modelCount: 0, autoHeal: false, lastResort: "", stateByKey: {} };
   try {
-    const res = await fetch("http://127.0.0.1:19080/stats", { signal: AbortSignal.timeout(3000) });
+    const res = await fetch(`http://127.0.0.1:${CASCADE_ROUTER_PORT}/stats`, { signal: AbortSignal.timeout(3000) });
     if (!res.ok) return (routingStatsCache = { ts: Date.now(), snap: empty }).snap;
     const d: any = await res.json();
     const models: any[] = Array.isArray(d?.models) ? d.models : [];
@@ -232,7 +238,7 @@ async function buildRoutingResponse() {
   const apiKeys: Record<string, string> = {};
   try {
     const fs = require("node:fs") as typeof import("node:fs");
-    const cfg = JSON.parse(fs.readFileSync(path.join(process.cwd(), "cascade-run", "router", "config.json"), "utf8"));
+    const cfg = JSON.parse(fs.readFileSync(appPath("cascade-run", "router", "config.json"), "utf8"));
     Object.assign(apiKeys, cfg?.apiKeys || {});
   } catch { /* без ключей — все hasApiKey=false */ }
 
@@ -669,7 +675,7 @@ let ownCatalogCache: { ts: number; models: any[] } | null = null;
 function loadOwnCatalog(): any[] {
   if (ownCatalogCache && Date.now() - ownCatalogCache.ts < CACHE_TTL_MS) return ownCatalogCache.models;
   const fs = require("node:fs") as typeof import("node:fs");
-  const raw = JSON.parse(fs.readFileSync(path.join(process.cwd(), "cascade-router", "catalog.json"), "utf8"));
+  const raw = JSON.parse(fs.readFileSync(appPath("cascade-router", "catalog.json"), "utf8"));
   const models = (raw.models || []) as any[];
   ownCatalogCache = { ts: Date.now(), models };
   return models;
@@ -1447,8 +1453,8 @@ class FreeCascadeHandler(BaseHTTPRequestHandler):
                     headers={
                         "Authorization": f"Bearer {OPENROUTER_KEY}",
                         "Content-Type": "application/json",
-                        "HTTP-Referer": "https://github.com/MrTodone/cascade",
-                        "X-Title": "Cascade"
+                        "HTTP-Referer": "https://free-ai-coder.local",
+                        "X-Title": "Free AI Coder Cascade"
                     }
                 )
                 
@@ -1514,8 +1520,158 @@ app.get("/api/vpn/status", (req, res) => {
     res.json({
       success: true,
       ...pubStatus(status),
+      processAlive: process.platform === "win32" ? vpnService.isTunnelProcessAlive() : undefined,
       appliedNode: vpnService.appliedNode(),
       nodes,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// —— Задача 37: first-run on-boarding визард ——
+// /api/setup/status: НИКОГДА не возвращает значения ключей — только hasApiKey.
+// /api/setup/apply: атомарно пишет router config.json (+ .env для facade-ключей
+// googleai/openrouter/groq), перезапускает роутер. Идемпотентно.
+const SETUP_PROVIDERS = ["llm7", "groq", "openrouter", "qwen", "cloudflare", "mistral", "googleai", "zai"];
+const SETUP_FACADE_ENV: Record<string, string> = {
+  googleai: "GEMINI_API_KEY",
+  openrouter: "OPENROUTER_API_KEY",
+  groq: "GROQ_API_KEY",
+};
+
+function readRouterConfigRaw(): { exists: boolean; cfg: any } {
+  const p = appPath("cascade-run", "router", "config.json");
+  try {
+    return { exists: true, cfg: JSON.parse(fs.readFileSync(p, "utf8")) };
+  } catch {
+    return { exists: false, cfg: {} };
+  }
+}
+
+function writeJsonAtomic(file: string, obj: unknown): void {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
+  const tmp = `${file}.tmp-${process.pid}`;
+  fs.writeFileSync(tmp, JSON.stringify(obj, null, 2) + "\n", "utf8");
+  fs.renameSync(tmp, file);
+}
+
+function upsertEnvKey(envPath: string, key: string, value: string): void {
+  let env: string;
+  try {
+    env = fs.readFileSync(envPath, "utf8");
+  } catch {
+    env = "";
+  }
+  const re = new RegExp(`^${key}=.*$`);
+  let found = false;
+  const out = env
+    .split("\n")
+    .map((l) => {
+      if (re.test(l.trim())) {
+        found = true;
+        return `${key}=${value}`;
+      }
+      return l;
+    });
+  while (out.length && out[out.length - 1].trim() === "") out.pop();
+  if (!found) out.push(`${key}=${value}`);
+  fs.writeFileSync(envPath, out.join("\n") + "\n", "utf8");
+}
+
+app.get("/api/setup/status", (_req, res) => {
+  try {
+    const { exists, cfg } = readRouterConfigRaw();
+    const apiKeys: Record<string, string> = cfg?.apiKeys || {};
+    const providers = SETUP_PROVIDERS.map((id) => {
+      const v = apiKeys[id];
+      const hasApiKey =
+        typeof v === "string" && v.trim().length > 0 && !/^YOUR_/i.test(v.trim());
+      return { id, hasApiKey };
+    });
+    const anyKey = providers.some((p) => p.hasApiKey);
+    let catalogOk = false;
+    try {
+      const raw = JSON.parse(fs.readFileSync(appPath("cascade-router", "catalog.json"), "utf8"));
+      catalogOk = Array.isArray(raw?.models) && raw.models.length > 0;
+    } catch {
+      catalogOk = false;
+    }
+    const subUrl = typeof cfg?.vpn?.subscriptionUrl === "string" ? cfg.vpn.subscriptionUrl : "";
+    res.json({
+      configExists: exists,
+      needsSetup: !exists || !anyKey,
+      providers,
+      tunnel: { configured: subUrl.trim().length > 0 },
+      catalogOk,
+    });
+  } catch (error: any) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+app.post("/api/setup/apply", async (req, res) => {
+  try {
+    const submitted: Record<string, string> = req.body?.providers || {};
+    const subscriptionUrl: string =
+      typeof req.body?.subscriptionUrl === "string" ? req.body.subscriptionUrl.trim() : "";
+    const { cfg } = readRouterConfigRaw();
+    const base = cfg && typeof cfg === "object" && Object.keys(cfg).length > 0 ? cfg : {};
+
+    let example: any = {};
+    try {
+      example = JSON.parse(fs.readFileSync(appPath("configs", "router.config.example.json"), "utf8"));
+    } catch {
+      example = {};
+    }
+
+    const nextApiKeys: Record<string, string> = {};
+    for (const id of SETUP_PROVIDERS) {
+      const v = submitted[id];
+      const prev = typeof base?.apiKeys?.[id] === "string" ? base.apiKeys[id] : "";
+      nextApiKeys[id] = typeof v === "string" && v.trim().length > 0 ? v.trim() : prev;
+    }
+    const prevSub =
+      typeof base?.vpn?.subscriptionUrl === "string" ? base.vpn.subscriptionUrl : "";
+    const nextVpn = {
+      subscriptionUrl: subscriptionUrl.length > 0 ? subscriptionUrl : prevSub,
+      ...(typeof example?.vpn === "object" && example.vpn ? example.vpn : {}),
+    };
+    nextVpn.subscriptionUrl = subscriptionUrl.length > 0 ? subscriptionUrl : prevSub;
+
+    const config = {
+      ...example,
+      ...base,
+      apiKeys: { ...(typeof example?.apiKeys === "object" ? example.apiKeys : {}), ...nextApiKeys },
+      vpn: nextVpn,
+      router: { ...(typeof example?.router === "object" ? example.router : {}), ...(typeof base?.router === "object" ? base.router : {}) },
+    };
+
+    writeJsonAtomic(appPath("cascade-run", "router", "config.json"), config);
+
+    const envPath = appPath(".env");
+    for (const prov of SETUP_PROVIDERS) {
+      const envKey = SETUP_FACADE_ENV[prov];
+      const v = nextApiKeys[prov];
+      if (envKey && typeof v === "string" && v.trim().length > 0) upsertEnvKey(envPath, envKey, v.trim());
+    }
+
+    await restartRouterDaemon();
+
+    const after = readRouterConfigRaw();
+    const apiKeys: Record<string, string> = after.cfg?.apiKeys || {};
+    res.json({
+      success: true,
+      configExists: after.exists,
+      needsSetup: after.exists && !SETUP_PROVIDERS.some((p) => {
+        const v = apiKeys[p];
+        return typeof v === "string" && v.trim().length > 0 && !/^YOUR_/i.test(v.trim());
+      }),
+      providers: SETUP_PROVIDERS.map((id) => {
+        const v = apiKeys[id];
+        return { id, hasApiKey: typeof v === "string" && v.trim().length > 0 && !/^YOUR_/i.test(v.trim()) };
+      }),
+      tunnel: { configured: typeof after.cfg?.vpn?.subscriptionUrl === "string" && after.cfg.vpn.subscriptionUrl.trim().length > 0 },
     });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
@@ -1562,7 +1718,7 @@ app.post("/api/vpn/select-node", (req, res) => {
 app.post("/api/vpn/sync", async (req, res) => {
   try {
     const { customUrl } = req.body;
-    const result = await vpnService.syncFromSubscription(customUrl);
+    const result = await vpnService.syncFromGitLab(customUrl);
     // After manual sync, run speed benchmark automatically
     const benchmarkResult = await vpnService.benchmarkAllNodes();
     const status = vpnService.getStatus();
@@ -1657,7 +1813,7 @@ app.post("/api/vpn/subscription-url", async (req, res) => {
       return res.status(400).json({ success: false, error: "Subscription URL is required" });
     }
     vpnService.setSubscriptionUrl(subscriptionUrl);
-    const syncRes = await vpnService.syncFromSubscription(subscriptionUrl);
+    const syncRes = await vpnService.syncFromGitLab(subscriptionUrl);
     await vpnService.benchmarkAllNodes();
     const status = vpnService.getStatus();
     const nodes = vpnService.publicNodes();
@@ -1715,20 +1871,22 @@ app.get("/api/vpn/export", (req, res) => {
   }
 });
 
-// Production and Development Vite integration
-async function start() {
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true, hmr: { host: "127.0.0.1" } },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
+// Production and Development integration. Старт подбирается входной точкой:
+// exe-entry.ts → статика dist/; dev-entry.ts → Vite dev-middleware. Здесь
+// vite не импортируется вовсе — в compiled cascade.exe его нет.
+function serveStaticApp() {
+  const distPath = appPath("dist");
+  app.use(express.static(distPath));
+  app.get("*", (req, res) => {
+    res.sendFile(path.join(distPath, "index.html"));
+  });
+}
+
+export async function start(opts?: { viteMiddleware?: any }): Promise<void> {
+  if (opts?.viteMiddleware) {
+    app.use(opts.viteMiddleware);
   } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
+    serveStaticApp();
   }
 
   await ensureRouterDaemon();
@@ -1739,4 +1897,17 @@ async function start() {
   });
 }
 
-start();
+// Прямой запуск `bun run server.ts` — прод-режим launchd (com.facmp.server.plist):
+// Vite dev-middleware, как и до рефакторинга (задача 37 сохраняет поведение).
+// Импортеры (exe-entry/dev-entry) стартуют через явный вызов start() — здесь
+// import.meta.main = false; в CJS-бандле import.meta подменяется esbuild на {}.
+if (import.meta.main) {
+  void (async () => {
+    const { createServer } = await import("vite");
+    const vite = await createServer({
+      server: { middlewareMode: true, hmr: { host: "127.0.0.1" } },
+      appType: "spa",
+    });
+    await start({ viteMiddleware: vite.middlewares });
+  })();
+}

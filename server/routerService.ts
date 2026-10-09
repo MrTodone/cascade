@@ -3,19 +3,22 @@ import path from "node:path";
 import { mkdirSync } from "node:fs";
 import { spawn, ChildProcess } from "node:child_process";
 import type { Request, Response, NextFunction } from "express";
+import { appPath, appRoot, isCompiled } from "./runtime";
 
-export const CASCADE_ROUTER_PORT = 19080;
+export const CASCADE_ROUTER_PORT = Number(process.env.CASCADE_ROUTER_PORT) || 19080;
 const CASCADE_ROUTER_URL = `http://127.0.0.1:${CASCADE_ROUTER_PORT}`;
 const TUNNEL_PROXY = "http://127.0.0.1:10808";
 
-const rootDir = process.cwd();
+// Пути резолвятся от APP_ROOT: в dev это cwd (историческое поведение), в
+// compiled-exe — каталог рядом с исполняемым файлом (cascade.exe).
+const rootDir = appRoot();
 // Задача 31, этап 3: роутер — собственное ядро cascade-router/server.ts.
 // Прежний cascade-run/router-run.mjs (обёртка над списанным внешним пакетом) больше не спавнится.
-const routerRunner = path.join(rootDir, "cascade-router", "server.ts");
-const routerConfigDir = path.join(rootDir, "cascade-run", "router");
+const routerRunner = appPath("cascade-router", "server.ts");
+const routerConfigDir = appPath("cascade-run", "router");
 const routerConfigFile = path.join(routerConfigDir, "config.json");
 const routerStateDir = path.join(routerConfigDir, "state");
-const routerCatalog = path.join(rootDir, "cascade-router", "catalog.json");
+const routerCatalog = appPath("cascade-router", "catalog.json");
 
 let routerProcess: ChildProcess | null = null;
 let starting = false;
@@ -50,29 +53,35 @@ export async function ensureRouterDaemon(): Promise<boolean> {
   starting = true;
   try {
     mkdirSync(routerStateDir, { recursive: true });
-    routerProcess = spawn(
-      process.execPath,
-      [routerRunner],
-      {
-        env: {
-          ...process.env,
-          // Прокси-контракт старого спавна перенесён один-в-один (задача 31).
-          NODE_USE_ENV_PROXY: "1",
-          HTTPS_PROXY: TUNNEL_PROXY,
-          HTTP_PROXY: TUNNEL_PROXY,
-          ALL_PROXY: TUNNEL_PROXY,
-          NO_PROXY: "127.0.0.1,localhost,::1,aistudio.google.com,api.cloudflare.com,api.orcarouter.ai,console.groq.com,github.com,huggingface.co,ollama.com,api.mistral.ai,api.llm7.io,dashscope-intl.aliyuncs.com,api.z.ai,generativelanguage.googleapis.com",
-          // Контракт собственного ядра (cascade-router §10): прод-конфиг читается
-          // без изменений, состояние пишется в каталог состояния рядом с ним.
-          CASCADE_ROUTER_PORT: String(CASCADE_ROUTER_PORT),
-          CASCADE_ROUTER_CONFIG: routerConfigFile,
-          CASCADE_ROUTER_STATE_DIR: routerStateDir,
-          CASCADE_ROUTER_CATALOG: routerCatalog,
-        },
-        stdio: ["ignore", "ignore", "pipe"],
-        detached: false,
-      }
-    );
+    // Compiled layout (задача 37): роутер — отдельный бинарь рядом с cascade.exe
+// (cascade-router.exe на Windows). В dev — прежний spawn(process.execPath,
+// [routerRunner]). Путь резолвится ЛЕНИВО внутри ensureRouterDaemon (после
+// detectCompiled()): на момент импорта модуля CASCADE_COMPILED ещё не выставлен,
+// иначе скомпилированный facade спавнил бы сам себя.
+const routerEnv = {
+  ...process.env,
+  // Прокси-контракт старого спавна перенесён один-в-один (задача 31).
+  NODE_USE_ENV_PROXY: "1",
+  HTTPS_PROXY: TUNNEL_PROXY,
+  HTTP_PROXY: TUNNEL_PROXY,
+  ALL_PROXY: TUNNEL_PROXY,
+  NO_PROXY: "127.0.0.1,localhost,::1,aistudio.google.com,api.cloudflare.com,api.orcarouter.ai,console.groq.com,github.com,huggingface.co,ollama.com,api.mistral.ai,api.llm7.io,dashscope-intl.aliyuncs.com,api.z.ai,generativelanguage.googleapis.com",
+  // Контракт собственного ядра (cascade-router §10): прод-конфиг читается
+  // без изменений, состояние пишется в каталог состояния рядом с ним.
+  CASCADE_ROUTER_PORT: String(CASCADE_ROUTER_PORT),
+  CASCADE_ROUTER_CONFIG: routerConfigFile,
+  CASCADE_ROUTER_STATE_DIR: routerStateDir,
+  CASCADE_ROUTER_CATALOG: routerCatalog,
+};
+const routerBin = isCompiled()
+  ? process.env.CASCADE_ROUTER_BIN || appPath(process.platform === "win32" ? "cascade-router.exe" : "cascade-router.bin")
+  : process.execPath;
+routerProcess = spawn(routerBin, isCompiled() ? [] : [routerRunner], {
+  env: routerEnv,
+  stdio: ["ignore", "ignore", "pipe"],
+  detached: false,
+  windowsHide: true,
+});
     if (routerProcess.stderr) {
       routerProcess.stderr.setEncoding("utf8");
       routerProcess.stderr.on("data", (d) => {
@@ -108,6 +117,30 @@ export function startRouterHealthLoop() {
     if (routerProcess !== null && routerProcess.exitCode === null) return;
     void ensureRouterDaemon();
   }, 30000);
+}
+
+/**
+ * Убивает текущий демон роутера и перезапускает его на новом конфиге.
+ * Используется визардом on-boarding (задача 37): после записи config.json и
+ * .env роутер обязан перечитать конфиг (ядро читает его один раз при старте).
+ */
+export async function restartRouterDaemon(): Promise<boolean> {
+  if (routerProcess !== null && routerProcess.exitCode === null) {
+    const old = routerProcess;
+    routerProcess = null;
+    starting = false;
+    try {
+      old.kill("SIGTERM");
+    } catch {
+      /* already dead */
+    }
+    const deadline = Date.now() + 3000;
+    while (Date.now() < deadline) {
+      if (!(await pingRouter(400))) break;
+      await new Promise((r) => setTimeout(r, 150));
+    }
+  }
+  return ensureRouterDaemon();
 }
 
 export function cascadeRouterProxy(req: Request, res: Response, next: NextFunction) {
