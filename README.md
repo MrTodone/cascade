@@ -57,6 +57,7 @@ Stack: **Bun 1.4.2 · TypeScript · Express · React · Vite · Tailwind · sing
 Prerequisites:
 - **Bun 1.4.2+** (single runtime: install deps, run, build, test).
 - **sing-box** — optional, only for the VLESS-Reality relay: `brew install sing-box`.
+- **Platforms:** macOS / Linux / Windows — the core gateway works natively on all three (Bun ships official binaries); the launchd service templates (`configs/launchd/`) are macOS-only.
 
 ```sh
 git clone https://github.com/MrTodone/cascade
@@ -151,7 +152,7 @@ brew install sing-box
 
 **launchd templates** (`configs/launchd/`): `com.cascade.server.plist.example` (the facade) and `com.cascade.singbox.plist.example` (the tunnel). They use `<BUN_BIN>`, `<CASCADE_ROOT>`, `<SINGBOX_BIN>`, `<SUBSCRIPTION_HOST>` placeholders — resolve them for your machine.
 
-**OS support, honestly:** macOS — full functionality (launchd KeepAlive + automatic tunnel steering). Linux — the facade and the router work; automatic tunnel startup is **not implemented in v1** (requires a launchd analogue), so the relay is manual on Linux.
+**OS support, honestly:** macOS — full functionality (launchd KeepAlive + automatic tunnel steering). Linux and Windows — the core gateway (facade :3000 + router :19080) runs natively: Bun ships official builds for both, and sing-box is a native binary on all three platforms. Automatic service management is launchd-based and is not implemented outside macOS in v1 — start sing-box manually, or wire it into systemd / Task Scheduler / NSSM yourself. See the [FAQ](#faq) for the full matrix.
 
 **NO_PROXY policy:** the following are direct — ipv4/ipv6 loopback, Google AI Studio, Cloudflare, OrcaRouter, Groq console, GitHub, HuggingFace, ollama.com, Mistral, LLM7, DashScope/Qwen, Z.ai. Traffic to OpenRouter and the Groq API host goes through the tunnel (:10808).
 
@@ -209,7 +210,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Does it work without VPN / sing-box?** Yes. Direct providers work immediately; geo-blocked ones gracefully fall over through the cascade. The relay starts only when `vpn.subscriptionUrl` is configured.
 
-**Which OS?** macOS — full functionality (launchd). Linux — facade and router work; the tunnel requires manual start (not implemented in v1).
+**Which OS?** macOS — full functionality, including launchd service templates (`configs/launchd/`). Linux and Windows — the core gateway (facade :3000 + router :19080) runs natively: Bun ships official builds for both. The tunnel is a native sing-box binary on all three, but service management is launchd-based and is not implemented outside macOS in v1 — start sing-box manually, or wire it into systemd / Task Scheduler / NSSM yourself. The project is developed and regression-tested on macOS; Linux and Windows are expected to work for the core gateway but are not covered by the regression suite.
 
 **Are my keys safe?** They stay local, on a loopback-only backend; the dashboard never receives them.
 
