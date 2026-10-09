@@ -1,0 +1,801 @@
+{
+  "_comment": "Mock-конфиг для детерминированного сьюта M1–M17. Ключи фиктивные, внешних вызовов нет, квоты не расходуются. Собственный файл этапа 2.",
+  "apiKeys": {
+    "mock": "mock-key-not-a-secret",
+    "mock1": "mock-key-mock1",
+    "mock10": "mock-key-mock10",
+    "mock11": "mock-key-mock11",
+    "mock12": "mock-key-mock12",
+    "mock13": "mock-key-mock13",
+    "mock14": "mock-key-mock14",
+    "mock15": "mock-key-mock15",
+    "mock16": "mock-key-mock16",
+    "mock17": "mock-key-mock17",
+    "mock18": "mock-key-mock18",
+    "mock19": "mock-key-mock19",
+    "mock2": "mock-key-mock2",
+    "mock20": "mock-key-mock20",
+    "mock21": "mock-key-mock21",
+    "mock22": "mock-key-mock22",
+    "mock23": "mock-key-mock23",
+    "mock24": "mock-key-mock24",
+    "mock25": "mock-key-mock25",
+    "mock26": "mock-key-mock26",
+    "mock27": "mock-key-mock27",
+    "mock28": "mock-key-mock28",
+    "mock29": "mock-key-mock29",
+    "mock3": "mock-key-mock3",
+    "mock30": "mock-key-mock30",
+    "mock31": "mock-key-mock31",
+    "mock32": "mock-key-mock32",
+    "mock33": "mock-key-mock33",
+    "mock34": "mock-key-mock34",
+    "mock35": "mock-key-mock35",
+    "mock36": "mock-key-mock36",
+    "mock37": "mock-key-mock37",
+    "mock38": "mock-key-mock38",
+    "mock39": "mock-key-mock39",
+    "mock4": "mock-key-mock4",
+    "mock40": "mock-key-mock40",
+    "mock41": "mock-key-mock41",
+    "mock5": "mock-key-mock5",
+    "mock6": "mock-key-mock6",
+    "mock7": "mock-key-mock7",
+    "mock8": "mock-key-mock8",
+    "mock9": "mock-key-mock9",
+    "mockt1": "mock-key-mockt1",
+    "mockt2": "mock-key-mockt2",
+    "mockt3": "mock-key-mockt3",
+    "mockt4": "mock-key-mockt4",
+    "mockt5": "mock-key-mockt5",
+    "mockt6": "mock-key-mockt6",
+    "mockt7": "mock-key-mockt7",
+    "mockt8": "mock-key-mockt8",
+    "mockt9": "mock-key-mockt9",
+    "mockt10": "mock-key-mockt10",
+    "mockt11": "mock-key-mockt11",
+    "mockt12": "mock-key-mockt12",
+    "mockt13": "mock-key-mockt13",
+    "mockt14": "mock-key-mockt14",
+    "mockt15": "mock-key-mockt15",
+    "mockt16": "mock-key-mockt16",
+    "mockt17": "mock-key-mockt17",
+    "mockt18": "mock-key-mockt18",
+    "mockt19": "mock-key-mockt19",
+    "mockt20": "mock-key-mockt20",
+    "mockt21": "mock-key-mockt21",
+    "mockt22": "mock-key-mockt22",
+    "mockt23": "mock-key-mockt23",
+    "mockt24": "mock-key-mockt24",
+    "mockt25": "mock-key-mockt25",
+    "mockt26": "mock-key-mockt26",
+    "mockt27": "mock-key-mockt27",
+    "mockt28": "mock-key-mockt28",
+    "mockt29": "mock-key-mockt29",
+    "mockt30": "mock-key-mockt30",
+    "mockt31": "mock-key-mockt31",
+    "mockt32": "mock-key-mockt32",
+    "mockt33": "mock-key-mockt33",
+    "mockt34": "mock-key-mockt34",
+    "mockt35": "mock-key-mockt35",
+    "mockt36": "mock-key-mockt36",
+    "mockt37": "mock-key-mockt37",
+    "mockt38": "mock-key-mockt38",
+    "mockt39": "mock-key-mockt39",
+    "mockt40": "mock-key-mockt40",
+    "mockt41": "mock-key-mockt41",
+    "mockt42": "mock-key-mockt42",
+    "mockt43": "mock-key-mockt43",
+    "mockt44": "mock-key-mockt44",
+    "mockt45": "mock-key-mockt45",
+    "mockt46": "mock-key-mockt46",
+    "mockt47": "mock-key-mockt47",
+    "mockt48": "mock-key-mockt48",
+    "mockt49": "mock-key-mockt49",
+    "mockt50": "mock-key-mockt50",
+    "mockt51": "mock-key-mockt51",
+    "mockt52": "mock-key-mockt52",
+    "mockt53": "mock-key-mockt53",
+    "mockt54": "mock-key-mockt54",
+    "mockt55": "mock-key-mockt55",
+    "mockt56": "mock-key-mockt56",
+    "mockt57": "mock-key-mockt57",
+    "mockt58": "mock-key-mockt58",
+    "mockt59": "mock-key-mockt59",
+    "mockt60": "mock-key-mockt60",
+    "mockb1": "mock-key-mockb1",
+    "mockb2": "mock-key-mockb2",
+    "mockb3": "mock-key-mockb3",
+    "mockb4": "mock-key-mockb4",
+    "mockb5": "mock-key-mockb5",
+    "mockb6": "mock-key-mockb6",
+    "mockb7": "mock-key-mockb7",
+    "mockb8": "mock-key-mockb8",
+    "mockb9": "mock-key-mockb9",
+    "mockb10": "mock-key-mockb10"
+  },
+  "settings": {
+    "hideUnconfiguredModels": false,
+    "autoHideBrokenModels": false
+  },
+  "router": {
+    "enabled": true,
+    "activeSet": "m1",
+    "autoHeal": false,
+    "userCustomized": false,
+    "probeMode": "off",
+    "circuitBreaker": {
+      "failureThreshold": 3,
+      "initialCooldownMs": 60000,
+      "maxCooldownMs": 300000,
+      "backoffMultiplier": 2
+    },
+    "failover": {
+      "maxRetries": 3,
+      "requestTimeoutMs": 2000,
+      "streamStallTimeoutMs": 30000,
+      "lastResortModel": "mock/lastresort-ok",
+      "bodyReadTimeoutMs": 2000,
+      "totalBudgetMs": 8000,
+      "contentValidation": "basic",
+      "rateLimitProviderSkipAfter": 2,
+      "maxAttemptsCap": 8
+    },
+    "sets": {
+      "m1": {
+        "name": "m1",
+        "models": [
+          {
+            "provider": "mock1",
+            "model": "ok-fast",
+            "priority": 1
+          }
+        ]
+      },
+      "m2": {
+        "name": "m2",
+        "models": [
+          {
+            "provider": "mock2",
+            "model": "ok-fast",
+            "priority": 1
+          },
+          {
+            "provider": "mock3",
+            "model": "fail-500",
+            "priority": 2
+          }
+        ]
+      },
+      "m3": {
+        "name": "m3",
+        "models": [
+          {
+            "provider": "mock4",
+            "model": "fail-auth",
+            "priority": 1
+          },
+          {
+            "provider": "mock5",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m4": {
+        "name": "m4",
+        "models": [
+          {
+            "provider": "mock6",
+            "model": "fail-timeout",
+            "priority": 1
+          },
+          {
+            "provider": "mock7",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m5": {
+        "name": "m5",
+        "models": [
+          {
+            "provider": "mock8",
+            "model": "fail-400",
+            "priority": 1
+          },
+          {
+            "provider": "mock9",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m6": {
+        "name": "m6",
+        "models": [
+          {
+            "provider": "mock10",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mock11",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m7": {
+        "name": "m7",
+        "models": [
+          {
+            "provider": "mock12",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mock13",
+            "model": "fail-timeout",
+            "priority": 2
+          },
+          {
+            "provider": "mock14",
+            "model": "fail-garbage",
+            "priority": 3
+          }
+        ]
+      },
+      "m8": {
+        "name": "m8",
+        "models": [
+          {
+            "provider": "mock15",
+            "model": "fail-timeout",
+            "priority": 1
+          },
+          {
+            "provider": "mock16",
+            "model": "fail-timeout",
+            "priority": 2
+          },
+          {
+            "provider": "mock17",
+            "model": "fail-timeout",
+            "priority": 3
+          },
+          {
+            "provider": "mock18",
+            "model": "fail-timeout",
+            "priority": 4
+          },
+          {
+            "provider": "mock19",
+            "model": "fail-timeout",
+            "priority": 5
+          },
+          {
+            "provider": "mock20",
+            "model": "fail-timeout",
+            "priority": 6
+          },
+          {
+            "provider": "mock21",
+            "model": "fail-timeout",
+            "priority": 7
+          },
+          {
+            "provider": "mock22",
+            "model": "fail-timeout",
+            "priority": 8
+          }
+        ]
+      },
+      "m9": {
+        "name": "m9",
+        "models": [
+          {
+            "provider": "mock23",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mock24",
+            "model": "fail-auth",
+            "priority": 2
+          },
+          {
+            "provider": "mock25",
+            "model": "ok-fast",
+            "priority": 3
+          }
+        ]
+      },
+      "m10": {
+        "name": "m10",
+        "models": [
+          {
+            "provider": "mock26",
+            "model": "fail-400",
+            "priority": 1
+          }
+        ]
+      },
+      "m11": {
+        "name": "m11",
+        "models": [
+          {
+            "provider": "mock27",
+            "model": "fail-429-passive",
+            "priority": 1
+          },
+          {
+            "provider": "mock28",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m12": {
+        "name": "m12",
+        "models": [
+          {
+            "provider": "mock29",
+            "model": "fail-429",
+            "priority": 1
+          }
+        ]
+      },
+      "m13": {
+        "name": "m13",
+        "models": [
+          {
+            "provider": "mock30",
+            "model": "fail-garbage",
+            "priority": 1
+          },
+          {
+            "provider": "mock31",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m14": {
+        "name": "m14",
+        "models": [
+          {
+            "provider": "mock32",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mock33",
+            "model": "fail-500",
+            "priority": 2
+          },
+          {
+            "provider": "mock34",
+            "model": "fail-500",
+            "priority": 3
+          },
+          {
+            "provider": "mock35",
+            "model": "fail-500",
+            "priority": 4
+          }
+        ]
+      },
+      "m15": {
+        "name": "m15",
+        "models": [
+          {
+            "provider": "mock36",
+            "model": "fail-429-long",
+            "priority": 1
+          },
+          {
+            "provider": "mock37",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m16": {
+        "name": "m16",
+        "models": [
+          {
+            "provider": "mock38",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mock39",
+            "model": "fail-500",
+            "priority": 2
+          }
+        ]
+      },
+      "m17": {
+        "name": "m17",
+        "models": [
+          {
+            "provider": "mock40",
+            "model": "ok-slow",
+            "priority": 1
+          },
+          {
+            "provider": "mock41",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ]
+      },
+      "m8x": {
+        "name": "m8x",
+        "models": [
+          {
+            "provider": "mockb1",
+            "model": "fail-timeout",
+            "priority": 1
+          },
+          {
+            "provider": "mockb2",
+            "model": "fail-timeout",
+            "priority": 2
+          },
+          {
+            "provider": "mockb3",
+            "model": "fail-timeout",
+            "priority": 3
+          },
+          {
+            "provider": "mockb4",
+            "model": "fail-timeout",
+            "priority": 4
+          },
+          {
+            "provider": "mockb5",
+            "model": "fail-timeout",
+            "priority": 5
+          },
+          {
+            "provider": "mockb6",
+            "model": "fail-timeout",
+            "priority": 6
+          },
+          {
+            "provider": "mockb7",
+            "model": "fail-timeout",
+            "priority": 7
+          },
+          {
+            "provider": "mockb8",
+            "model": "fail-timeout",
+            "priority": 8
+          },
+          {
+            "provider": "mockb9",
+            "model": "fail-timeout",
+            "priority": 9
+          },
+          {
+            "provider": "mockb10",
+            "model": "fail-timeout",
+            "priority": 10
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:14.182Z"
+      },
+      "m9x": {
+        "name": "m9x",
+        "models": [
+          {
+            "provider": "mockt1",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt2",
+            "model": "fail-forbidden",
+            "priority": 2
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:22.247Z"
+      },
+      "m10x": {
+        "name": "m10x",
+        "models": [
+          {
+            "provider": "mockt3",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt4",
+            "model": "fail-500",
+            "priority": 2
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:22.254Z"
+      },
+      "m13x": {
+        "name": "m13x",
+        "models": [
+          {
+            "provider": "mockt5",
+            "model": "fail-garbage",
+            "priority": 1
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:22.263Z"
+      },
+      "m14x": {
+        "name": "m14x",
+        "models": [
+          {
+            "provider": "mockt6",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt7",
+            "model": "fail-500",
+            "priority": 2
+          },
+          {
+            "provider": "mockt8",
+            "model": "fail-500",
+            "priority": 3
+          },
+          {
+            "provider": "mockt9",
+            "model": "fail-500",
+            "priority": 4
+          },
+          {
+            "provider": "mockt10",
+            "model": "fail-500",
+            "priority": 5
+          },
+          {
+            "provider": "mockt11",
+            "model": "fail-500",
+            "priority": 6
+          },
+          {
+            "provider": "mockt12",
+            "model": "fail-500",
+            "priority": 7
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:22.266Z"
+      },
+      "m16x": {
+        "name": "m16x",
+        "models": [
+          {
+            "provider": "mockt14",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt15",
+            "model": "ok-slow",
+            "priority": 2
+          },
+          {
+            "provider": "mockt16",
+            "model": "ok-fast",
+            "priority": 3
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:22.269Z"
+      },
+      "m16y": {
+        "name": "m16y",
+        "models": [
+          {
+            "provider": "mockt17",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt18",
+            "model": "ok-fast",
+            "priority": 2
+          }
+        ],
+        "familyFailover": true,
+        "created": "2026-09-29T12:20:23.077Z"
+      },
+      "m18": {
+        "models": [
+          {
+            "provider": "mockt50",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mockt50",
+            "model": "fail-429-long",
+            "priority": 2
+          },
+          {
+            "provider": "mockt50",
+            "model": "ok-fast",
+            "priority": 3
+          },
+          {
+            "provider": "mockt51",
+            "model": "ok-fast",
+            "priority": 4
+          }
+        ],
+        "name": "m18"
+      },
+      "m19": {
+        "models": [
+          {
+            "provider": "mockt52",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mockt52",
+            "model": "fail-429-long",
+            "priority": 2
+          },
+          {
+            "provider": "mockt53",
+            "model": "fail-429",
+            "priority": 3
+          },
+          {
+            "provider": "mockt53",
+            "model": "fail-429-long",
+            "priority": 4
+          }
+        ],
+        "name": "m19"
+      },
+      "m20": {
+        "models": [
+          {
+            "provider": "mockt20",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt21",
+            "model": "fail-500",
+            "priority": 2
+          },
+          {
+            "provider": "mockt22",
+            "model": "fail-500",
+            "priority": 3
+          },
+          {
+            "provider": "mockt23",
+            "model": "fail-500",
+            "priority": 4
+          },
+          {
+            "provider": "mockt24",
+            "model": "fail-500",
+            "priority": 5
+          },
+          {
+            "provider": "mockt25",
+            "model": "fail-500",
+            "priority": 6
+          },
+          {
+            "provider": "mockt26",
+            "model": "fail-500",
+            "priority": 7
+          },
+          {
+            "provider": "mockt27",
+            "model": "fail-500",
+            "priority": 8
+          },
+          {
+            "provider": "mockt28",
+            "model": "fail-500",
+            "priority": 9
+          },
+          {
+            "provider": "mockt29",
+            "model": "fail-500",
+            "priority": 10
+          }
+        ],
+        "name": "m20"
+      },
+      "m21": {
+        "models": [
+          {
+            "provider": "mockt44",
+            "model": "fail-500",
+            "priority": 1
+          },
+          {
+            "provider": "mockt44",
+            "model": "fail-timeout",
+            "priority": 2
+          },
+          {
+            "provider": "mockt44",
+            "model": "ok-fast",
+            "priority": 3
+          },
+          {
+            "provider": "mockt45",
+            "model": "fail-500",
+            "priority": 4
+          }
+        ],
+        "name": "m21"
+      },
+      "m19b": {
+        "models": [
+          {
+            "provider": "mockt54",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mockt54",
+            "model": "fail-429-long",
+            "priority": 2
+          },
+          {
+            "provider": "mockt54",
+            "model": "ok-fast",
+            "priority": 3
+          }
+        ],
+        "name": "m19b"
+      },
+      "m22": {
+        "models": [
+          {
+            "provider": "mockt55",
+            "model": "fail-429",
+            "priority": 1
+          },
+          {
+            "provider": "mockt55",
+            "model": "fail-429-long",
+            "priority": 2
+          },
+          {
+            "provider": "mockt55",
+            "model": "fail-429-c",
+            "priority": 3
+          },
+          {
+            "provider": "mockt55",
+            "model": "fail-429-d",
+            "priority": 4
+          },
+          {
+            "provider": "mockt55",
+            "model": "ok-fast",
+            "priority": 5
+          }
+        ],
+        "name": "m22"
+      }
+    }
+  }
+}

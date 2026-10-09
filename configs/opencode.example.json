@@ -1,0 +1,23 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "cascade/cascade",
+  "small_model": "cascade/cascade",
+  "provider": {
+    "cascade": {
+      "npm": "@ai-sdk/openai-compatible",
+      "name": "Cascade local gateway",
+      "options": {
+        "baseURL": "http://localhost:3000/v1",
+        "apiKey": "cascade-local"
+      },
+      "models": {
+        "cascade": {
+          "name": "Cascade auto-router (active set)"
+        },
+        "cascade:fast-coding": {
+          "name": "Cascade set: fast-coding"
+        }
+      }
+    }
+  }
+}

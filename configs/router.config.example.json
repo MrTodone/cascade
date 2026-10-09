@@ -1,0 +1,88 @@
+{
+  "_comment": "Cascade router example config. Copy to cascade-run/router/config.json and replace every YOUR_<PROVIDER>_KEY with a real key. A provider without a key is simply inactive (boolean hasApiKey). Ports 3000 (facade) and 19080 (router) are fixed in code.",
+  "apiKeys": {
+    "llm7": "YOUR_LLM7_KEY",
+    "groq": "YOUR_GROQ_KEY",
+    "openrouter": "YOUR_OPENROUTER_KEY",
+    "qwen": "YOUR_QWEN_KEY",
+    "cloudflare": "YOUR_CLOUDFLARE_KEY",
+    "mistral": "YOUR_MISTRAL_KEY",
+    "googleai": "YOUR_GOOGLEAI_KEY",
+    "zai": "YOUR_ZAI_KEY"
+  },
+  "providers": {},
+  "settings": {
+    "cloudflareAccountId": "",
+    "hideUnconfiguredModels": true,
+    "autoHideBrokenModels": false
+  },
+  "favorites": [],
+  "telemetry": {
+    "enabled": false,
+    "anonymousId": ""
+  },
+  "sync": {
+    "enabled": false
+  },
+  "updater": {
+    "enabled": false,
+    "channel": "stable"
+  },
+  "endpointInstalls": {},
+  "hiddenModels": [],
+  "router": {
+    "enabled": true,
+    "onboardingSeen": false,
+    "autoStartOnBoot": true,
+    "port": 19080,
+    "activeSet": "fast-coding",
+    "sets": {
+      "fast-coding": {
+        "_comment": "Sample set: 3-5 catalog models with priority 1..N (lower = tried first in the cascade). Omit _comment in a real config if you prefer.",
+        "name": "fast-coding",
+        "created": "2026-01-01T00:00:00.000Z",
+        "familyFailover": true,
+        "models": [
+          { "provider": "llm7", "model": "minimax-m2.7", "priority": 1 },
+          { "provider": "openrouter", "model": "nvidia/nemotron-3-ultra-550b-a55b:free", "priority": 2 },
+          { "provider": "qwen", "model": "qwen3-coder-next", "priority": 3 },
+          { "provider": "cloudflare", "model": "@cf/openai/gpt-oss-120b", "priority": 4 },
+          { "provider": "mistral", "model": "codestral-latest", "priority": 5 }
+        ]
+      }
+    },
+    "probeMode": "aggressive",
+    "circuitBreaker": {
+      "failureThreshold": 3,
+      "initialCooldownMs": 30000,
+      "maxCooldownMs": 300000,
+      "backoffMultiplier": 2
+    },
+    "failover": {
+      "maxRetries": 3,
+      "streamStallTimeoutMs": 30000,
+      "requestTimeoutMs": 15000,
+      "lastResortModel": null,
+      "bodyReadTimeoutMs": 30000,
+      "totalBudgetMs": 120000,
+      "contentValidation": "strict",
+      "rateLimitProviderSkipAfter": 2,
+      "maxAttemptsCap": 8
+    },
+    "scoring": {
+      "latencyWeight": 0.5,
+      "uptimeWeight": 0.5,
+      "priorityWeight": 0.2
+    },
+    "autoHeal": true,
+    "userCustomized": false,
+    "logLevel": "info",
+    "prePrompt": ""
+  },
+  "vpn": {
+    "_comment": "Empty = relay disabled (graceful): direct providers keep working, geo-blocked ones just fail over. Set the URL of YOUR OWN subscription to enable the VLESS-Reality relay.",
+    "subscriptionUrl": "",
+    "singboxServiceLabel": "",
+    "_commentServiceLabel": "Empty = default 'com.cascade.singbox' (matches configs/launchd/com.cascade.singbox.plist.example). For an existing local install, set the ACTUAL launchd service label here so the tunnel restart keeps working."
+  }
+}

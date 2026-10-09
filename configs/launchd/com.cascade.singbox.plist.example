@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Cascade sing-box relay — example macOS launchd agent (label com.cascade.singbox).
+  Install:
+    cp configs/launchd/com.cascade.singbox.plist.example ~/Library/LaunchAgents/com.cascade.singbox.plist
+    # then replace <SINGBOX_BIN> and <CASCADE_ROOT> below
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.cascade.singbox.plist
+-->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.cascade.singbox</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>&lt;SINGBOX_BIN&gt;</string>
+		<string>run</string>
+		<string>-D</string>
+		<string>&lt;CASCADE_ROOT&gt;/cascade-run</string>
+		<string>-c</string>
+		<string>singbox.json</string>
+	</array>
+	<key>WorkingDirectory</key>
+	<string>&lt;CASCADE_ROOT&gt;/cascade-run</string>
+	<key>KeepAlive</key>
+	<true/>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardOutPath</key>
+	<string>&lt;CASCADE_ROOT&gt;/cascade-run/singbox-launchd.out</string>
+	<key>StandardErrorPath</key>
+	<string>&lt;CASCADE_ROOT&gt;/cascade-run/singbox-launchd.err</string>
+</dict>
+</plist>

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "opencode/big-pickle",
+  "small_model": "openrouter/meta-llama/llama-3.3-70b-instruct:free",
+  "provider": {
+    "openrouter": {
+      "options": {
+        "apiKey": "{OPENROUTER_API_KEY}"
+      }
+    },
+    "groq": {
+      "options": {
+        "apiKey": "{GROQ_API_KEY}"
+      }
+    }
+  },
+  "instructions": [
+    "You are an expert full-stack TypeScript and React assistant working with the Cascade project.",
+    "Always maintain strict type safety and verify imports.",
+    "Prioritize clean, production-grade solutions."
+  ]
+}

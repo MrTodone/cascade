@@ -1,0 +1,45 @@
+{
+  "_comment": "Мини-каталог для heal-тестов: model-x и model-y есть у провайдеров a и b (проверка замены), model-x2 — только у a (проверка «замена есть не у всех»).",
+  "models": [
+    {
+      "provider": "a",
+      "model": "model-x",
+      "context": 8192,
+      "tier": "test",
+      "score": 100,
+      "provenance": "test-fixture"
+    },
+    {
+      "provider": "b",
+      "model": "model-x",
+      "context": 8192,
+      "tier": "test",
+      "score": 90,
+      "provenance": "test-fixture"
+    },
+    {
+      "provider": "a",
+      "model": "model-x2",
+      "context": 8192,
+      "tier": "test",
+      "score": 80,
+      "provenance": "test-fixture"
+    },
+    {
+      "provider": "a",
+      "model": "model-y",
+      "context": 8192,
+      "tier": "test",
+      "score": 70,
+      "provenance": "test-fixture"
+    },
+    {
+      "provider": "b",
+      "model": "model-y",
+      "context": 8192,
+      "tier": "test",
+      "score": 70,
+      "provenance": "test-fixture"
+    }
+  ]
+}

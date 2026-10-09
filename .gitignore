@@ -1,0 +1,68 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+.aider*
+
+# Runtime state / secrets (never committed)
+cascade-run/
+backups/
+dev-config.json
+vpn-subscription-cache.txt
+
+# Editor / OS junk
+.idea/
+.vscode/
+Thumbs.db
+*.swp
+*.bak
+*~
+*.tmp
+
+# Archives / DB dumps
+*.tgz
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.rar
+*.sqlite
+*.sqlite3
+*.db
+*.sql
+*.dump
+
+# Private keys / credentials
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+id_rsa*
+id_ed25519*
+id_ed25519.pub
+id_ecdsa*
+id_ed448*
+credentials.json
+service-account*.json
+.htpasswd
+
+# Logs / out files
+*.out
+*.out.*
+*.log.*
+timing-*.txt
+
+# Python (tooling scripts)
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/

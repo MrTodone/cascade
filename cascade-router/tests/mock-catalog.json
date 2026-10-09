@@ -1,0 +1,5437 @@
+{
+ "_comment": "Каталог mock-моделей для сьюта M1–M17. Фиктивные записи, внешних вызовов нет.",
+ "models": [
+  {
+   "provider": "mock1",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock10",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock11",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock12",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock13",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock14",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock15",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock16",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock17",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock18",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock19",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock2",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock20",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock21",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock22",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock23",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock24",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock25",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock26",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock27",
+   "model": "fail-429-passive",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock28",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock29",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock3",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock30",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock31",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock32",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock33",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock34",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock35",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock36",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock37",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock38",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock39",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock4",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock40",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock41",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock5",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock6",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock7",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock8",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock9",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mock",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt1",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt2",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt3",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt4",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt5",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt6",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt7",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt8",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt9",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt10",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt11",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt12",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt13",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt14",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt15",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt16",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt17",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt18",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt19",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt20",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt21",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt22",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt23",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt24",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt25",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt26",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt27",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt28",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt29",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt30",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt31",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt32",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt33",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt34",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt35",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt36",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt37",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt38",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt39",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt40",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt41",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt42",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt43",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt44",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt45",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt46",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt47",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt48",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt49",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt51",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt56",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt57",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt58",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt59",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-500",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-429",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-400",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-forbidden",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-garbage",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "fail-auth",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "ok-slow",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt60",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb1",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb1",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb1",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb2",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb2",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb2",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb3",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb3",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb3",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb4",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb4",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb4",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb5",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb5",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb5",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb6",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb6",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb6",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb7",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb7",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb7",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb8",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb8",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb8",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb9",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb9",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb9",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb10",
+   "model": "fail-timeout",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb10",
+   "model": "ok-fast",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockb10",
+   "model": "lastresort-ok",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt50",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt52",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt53",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt54",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-429-long",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-429-c",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  },
+  {
+   "provider": "mockt55",
+   "model": "fail-429-d",
+   "context": 8192,
+   "tier": "mock",
+   "score": 100,
+   "provenance": "mock-suite"
+  }
+ ]
+}

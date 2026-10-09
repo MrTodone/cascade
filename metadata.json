@@ -1,0 +1,6 @@
+{
+  "name": "Cascade",
+  "description": "Парсер и мониторинг бесплатных ИИ-моделей со встроенным менеджером VLESS Reality серверов: часовое автообновление по RAW подписке, регулярный бенчмарк скорости и автоматический выбор лучшего узла для обхода гео-блокировок.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

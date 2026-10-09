@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Cascade facade — example macOS launchd agent (label com.cascade.server).
+  Install:
+    cp configs/launchd/com.cascade.server.plist.example ~/Library/LaunchAgents/com.cascade.server.plist
+    # then replace <BUN_BIN>, <CASCADE_ROOT> and <SUBSCRIPTION_HOST> below
+    launchctl bootstrap gui/$(id -u) ~/Library/LaunchAgents/com.cascade.server.plist
+  <SUBSCRIPTION_HOST> = host of your VPN subscription URL (kept out of the proxy).
+-->
+<plist version="1.0">
+<dict>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>ALL_PROXY</key>
+		<string>http://127.0.0.1:10808</string>
+		<key>HTTPS_PROXY</key>
+		<string>http://127.0.0.1:10808</string>
+		<key>HTTP_PROXY</key>
+		<string>http://127.0.0.1:10808</string>
+		<key>NO_PROXY</key>
+		<string>127.0.0.1,localhost,::1,&lt;SUBSCRIPTION_HOST&gt;,api.cloudflare.com,api.orcarouter.ai,console.groq.com,github.com,huggingface.co,ollama.com</string>
+	</dict>
+	<key>KeepAlive</key>
+	<true/>
+	<key>Label</key>
+	<string>com.cascade.server</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>&lt;BUN_BIN&gt;</string>
+		<string>run</string>
+		<string>&lt;CASCADE_ROOT&gt;/server.ts</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StandardErrorPath</key>
+	<string>&lt;CASCADE_ROOT&gt;/cascade-run/server-launchd.err</string>
+	<key>StandardOutPath</key>
+	<string>&lt;CASCADE_ROOT&gt;/cascade-run/server-launchd.out</string>
+	<key>WorkingDirectory</key>
+	<string>&lt;CASCADE_ROOT&gt;</string>
+</dict>
+</plist>
