@@ -111,6 +111,8 @@ mkdirSync(join(STAGE, "dist"), { recursive: true });
   const dll = join(x, SINGBOX_PREFIX, "libcronet.dll");
   if (existsSync(dll)) copyFileSync(dll, join(STAGE, "libcronet.dll"));
   copyFileSync(join(x, SINGBOX_PREFIX, "LICENSE"), join(STAGE, "licenses", "SING-BOX-GPLv3.txt"));
+  rmSync(SINGBOX_ZIP, { force: true });
+  rmSync(x, { recursive: true, force: true });
 }
 
 // 3. assemble the release layout

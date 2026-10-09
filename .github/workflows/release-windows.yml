@@ -90,6 +90,6 @@ jobs:
             Windows distribution (two-file layout): cascade.exe + cascade-router.exe,
             bundled sing-box v1.14.1, dashboard, catalog, configs, SHA256SUMS.
           files: |
-            dist-artifact/**/*.zip
+            dist-artifact/**/cascade-*.zip
             meta/SHA256SUMS
           fail_on_unmatched_files: true
