@@ -29,8 +29,19 @@ const UNSUPPORTED_TRANSPORTS = ["xhttp"];
 // перегрузка для тестов).
 function singboxBin(): string {
   if (process.env.SGBOX) return process.env.SGBOX;
+  const cfgBin = loadSingboxBinaryFromConfig();
+  if (cfgBin) return cfgBin;
   if (process.platform === "win32") return appPath("sing-box.exe");
-  return "/opt/homebrew/bin/sing-box";
+  // Prefer APP_ROOT/bin/sing-box, fallback to common paths
+  try {
+    const binPath = appPath("bin", "sing-box");
+    if (fs.existsSync(binPath)) return binPath;
+  } catch {}
+  try {
+    const binPath = appPath("bin", "sing-box.exe");
+    if (fs.existsSync(binPath)) return binPath;
+  } catch {}
+  return process.platform === "darwin" ? "/opt/homebrew/bin/sing-box" : "sing-box";
 }
 
 export interface VlessNode {
@@ -80,6 +91,7 @@ export interface VpnStatus {
   lastApplyError?: string;
   lastEgress?: { ok: boolean; loc: string };
   egressProbe?: { total: number; ok: number; checkedAt: string };
+  manager?: "auto" | "launchd" | "builtin" | "external";
 }
 
 // The subscription source is configured EXCLUSIVELY via the config file
@@ -103,6 +115,7 @@ function loadSubscriptionUrlFromConfig(): string {
 // and an existing local install may override it via vpn.singboxServiceLabel in
 // cascade-run/router/config.json (so a tunnel restart keeps working unchanged).
 const DEFAULT_SINGBOX_SERVICE_LABEL = "com.cascade.singbox";
+const DEFAULT_TUNNEL_MANAGER = "auto"; // auto|launchd|builtin|external
 
 function loadSingboxServiceLabelFromConfig(): string {
   try {
@@ -114,12 +127,34 @@ function loadSingboxServiceLabelFromConfig(): string {
   }
 }
 
+function loadTunnelManagerFromConfig(): "auto" | "launchd" | "builtin" | "external" {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(ROUTER_CONFIG_PATH, "utf8"));
+    const m = cfg?.vpn?.tunnelManager;
+    if (m === "launchd" || m === "builtin" || m === "external" || m === "auto") return m;
+    return DEFAULT_TUNNEL_MANAGER;
+  } catch {
+    return DEFAULT_TUNNEL_MANAGER;
+  }
+}
+
+function loadSingboxBinaryFromConfig(): string {
+  try {
+    const cfg = JSON.parse(fs.readFileSync(ROUTER_CONFIG_PATH, "utf8"));
+    const b = cfg?.vpn?.singboxBinary;
+    return typeof b === "string" && b.trim().length > 0 ? b.trim() : "";
+  } catch {
+    return "";
+  }
+}
+
 class VpnService {
   private enabled: boolean = false; // Relay is enabled only when a subscription URL is configured
   private activeNodeId: string = "";
   private nodes: VlessNode[] = [];
   private subscriptionUrl: string = "";
   private singboxServiceLabel: string = DEFAULT_SINGBOX_SERVICE_LABEL;
+  private tunnelManager: "auto" | "launchd" | "builtin" | "external" = DEFAULT_TUNNEL_MANAGER;
   private lastSync: string = new Date().toISOString();
   private nextSync: string = new Date(Date.now() + 60 * 60 * 1000).toISOString();
   private lastSpeedTest: string = new Date().toISOString();
@@ -160,6 +195,7 @@ class VpnService {
     // working. See configs/router.config.example.json.
     this.subscriptionUrl = loadSubscriptionUrlFromConfig();
     this.singboxServiceLabel = loadSingboxServiceLabelFromConfig();
+    this.tunnelManager = loadTunnelManagerFromConfig();
     this.enabled = this.subscriptionUrl.length > 0;
 
     // Task 6: restore the last successfully applied node across restarts so
@@ -666,6 +702,7 @@ class VpnService {
       lastApplyError: this.lastApplyError || undefined,
       lastEgress: { ok: this.lastEgress.ok, loc: this.lastEgress.loc },
       egressProbe: this.lastEgressProbe || undefined,
+      manager: this.tunnelManager,
     };
   }
 
@@ -825,14 +862,56 @@ class VpnService {
     });
   }
 
+  private getEffectiveManager(): "launchd" | "builtin" | "external" {
+    const m = this.tunnelManager;
+    if (m === "launchd" || m === "builtin" || m === "external") {
+      if (m === "launchd" && process.platform !== "darwin") return "builtin";
+      return m;
+    }
+    // auto
+    if (process.platform === "darwin") return "launchd";
+    if (process.platform === "win32" || process.platform === "linux") return "builtin";
+    return "builtin";
+  }
+
   private restartTunnel(): Promise<void> {
-    if (process.platform === "win32") return this.restartTunnelWin32();
-    return new Promise((resolve, reject) => {
-      const uid = typeof process.getuid === "function" ? process.getuid() : os.userInfo().uid;
-      execFile("/bin/launchctl", ["kickstart", "-k", `gui/${uid}/${this.singboxServiceLabel}`], (err) => {
-        if (err) reject(err);
-        else resolve();
+    const eff = this.getEffectiveManager();
+    if (eff === "external") return Promise.resolve();
+    if (eff === "launchd") {
+      return new Promise((resolve, reject) => {
+        const uid = typeof process.getuid === "function" ? process.getuid() : os.userInfo().uid;
+        execFile("/bin/launchctl", ["kickstart", "-k", `gui/${uid}/${this.singboxServiceLabel}`], (err) => {
+          if (err) reject(err);
+          else resolve();
+        });
       });
+    }
+    // builtin: win32/linux/darwin if overridden
+    if (process.platform === "win32") return this.restartTunnelWin32();
+    return this.restartTunnelBuiltin();
+  }
+
+  private restartTunnelBuiltin(): Promise<void> {
+    if (this.singboxProc !== null && this.singboxProc.exitCode === null) {
+      try {
+        this.singboxProc.kill();
+      } catch {}
+      this.singboxProc = null;
+    }
+    return new Promise((resolve) => {
+      try {
+        fs.mkdirSync(appPath("cascade-run"), { recursive: true });
+        const bin = singboxBin();
+        const proc = spawn(bin, ["run", "-D", appPath("cascade-run"), "-c", "singbox.json"], {
+          cwd: appPath("cascade-run"),
+          stdio: "ignore",
+        });
+        proc.on("exit", () => {
+          if (this.singboxProc === proc) this.singboxProc = null;
+        });
+        this.singboxProc = proc;
+      } catch {}
+      resolve();
     });
   }
 
@@ -870,9 +949,11 @@ class VpnService {
     });
   }
 
-  /** Статус процесса sing-box (Windows): жив/упал. */
+  /** Статус процесса sing-box. */
   isTunnelProcessAlive(): boolean {
-    if (process.platform !== "win32") return false;
+    const eff = this.getEffectiveManager();
+    if (eff === "launchd") return false; // launchd-managed, not our child
+    if (eff === "external") return false;
     return this.singboxProc !== null && this.singboxProc.exitCode === null;
   }
 
@@ -1330,6 +1411,16 @@ class VpnService {
       ],
     };
   }
+
+  stopTunnel(): void {
+    if (this.singboxProc !== null && this.singboxProc.exitCode === null) {
+      try {
+        this.singboxProc.kill("SIGTERM");
+      } catch {}
+      this.singboxProc = null;
+    }
+  }
 }
 
 export const vpnService = new VpnService();
+

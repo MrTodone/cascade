@@ -1,4 +1,4 @@
-name: windows-release
+name: release
 
 on:
   workflow_dispatch:
@@ -46,50 +46,105 @@ jobs:
         run: node scripts/dist-windows.mjs
         env:
           CASCADE_DIST_DIR: ${{ runner.temp }}/cascade-dist
+      - name: smoke (builtin manager + graceful shutdown)
+        shell: pwsh
+        run: |
+          $exe = Join-Path "${{ runner.temp }}/cascade-dist/stage" "cascade.exe"
+          $env:CASCADE_PORT = "3211"
+          $env:CASCADE_ROUTER_PORT = "19211"
+          $p = Start-Process -FilePath $exe -WorkingDirectory (Split-Path $exe) -PassThru -WindowStyle Hidden
+          $ok = $false
+          for ($i = 0; $i -lt 40; $i++) {
+            try { Invoke-WebRequest "http://127.0.0.1:3211/" -UseBasicParsing -TimeoutSec 2 | Out-Null; $ok = $true; break }
+            catch { Start-Sleep -Seconds 1 }
+          }
+          if (-not $ok) { Stop-Process -Id $p.Id -Force; throw "facade did not start" }
+          $st = Invoke-RestMethod "http://127.0.0.1:3211/api/vpn/status"
+          Write-Host "manager=$($st.manager) processAlive=$($st.processAlive)"
+          if ($st.manager -ne "builtin") { throw "expected manager=builtin, got $($st.manager)" }
+          Invoke-RestMethod -Method Post "http://127.0.0.1:3211/api/app/shutdown" | Out-Null
+          Start-Sleep -Seconds 3
+          if (-not $p.HasExited) { Stop-Process -Id $p.Id -Force; throw "facade did not exit after /api/app/shutdown" }
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cascade-windows-x64
           path: |
             ${{ runner.temp }}/cascade-dist/**
-      - name: tag release artifact (pass to release job)
+          if-no-files-found: error
+
+  linux:
+    name: build-linux-tarball
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - name: build dashboard
+        run: npx vite build
+      - name: build distribution tarball
+        run: node scripts/dist-linux.mjs
+        env:
+          CASCADE_DIST_DIR: ${{ runner.temp }}/cascade-dist-linux
+      - name: smoke (builtin manager + graceful shutdown)
+        shell: bash
+        run: |
+          set -euo pipefail
+          STAGE="${{ runner.temp }}/cascade-dist/stage"
+          export CASCADE_PORT=3212 CASCADE_ROUTER_PORT=19212
+          ( cd "$STAGE" && ./cascade >"$STAGE/smoke.log" 2>&1 & echo $! > "$STAGE/smoke.pid" )
+          ok=0
+          for i in $(seq 1 40); do
+            if curl -sf -o /dev/null "http://127.0.0.1:3212/"; then ok=1; break; fi
+            sleep 1
+          done
+          [ "$ok" = "1" ] || { cat "$STAGE/smoke.log"; exit 1; }
+          mgr=$(curl -s "http://127.0.0.1:3212/api/vpn/status" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("manager"))')
+          echo "manager=$mgr"
+          [ "$mgr" = "builtin" ] || { echo "expected manager=builtin"; exit 1; }
+          curl -s -X POST "http://127.0.0.1:3212/api/app/shutdown"
+          sleep 3
+          if kill -0 "$(cat "$STAGE/smoke.pid")" 2>/dev/null; then echo "facade did not exit"; kill -9 "$(cat "$STAGE/smoke.pid")" || true; exit 1; fi
+          echo "graceful shutdown OK"
+      - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
-          name: release-meta
+          name: cascade-linux-x64
           path: |
-            ${{ runner.temp }}/cascade-dist/SHA256SUMS
+            ${{ runner.temp }}/cascade-dist/**
           if-no-files-found: error
 
   release:
     name: publish github release
     runs-on: ubuntu-latest
-    needs: windows
+    needs: [windows, linux]
     if: startsWith(github.ref, 'refs/tags/v')
     steps:
       - uses: actions/download-artifact@v4
         with:
           name: cascade-windows-x64
-          path: dist-artifact
-      - name: locate zip
-        id: locate
-        shell: bash
-        run: |
-          zip=$(find dist-artifact -name 'cascade-*.zip' | head -1)
-          echo "zip=$zip" >> "$GITHUB_OUTPUT"
-          echo "SHA256SUMS=$git" >> /dev/null
+          path: dist-artifact/win
       - uses: actions/download-artifact@v4
         with:
-          name: release-meta
-          path: meta
-      - name: create release
+          name: cascade-linux-x64
+          path: dist-artifact/lin
+      - name: stage assets + merge checksums
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets
+          cp dist-artifact/win/*.zip assets/
+          cp dist-artifact/lin/*.tar.gz assets/
+          cat dist-artifact/win/SHA256SUMS dist-artifact/lin/SHA256SUMS | sort -u > assets/SHA256SUMS
+          ls -la assets
+      - name: publish release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Cascade ${{ github.ref_name }}
-          body: |
-            Windows distribution (two-file layout): cascade.exe + cascade-router.exe,
-            bundled sing-box v1.14.1, dashboard, catalog, configs, SHA256SUMS.
-          files: |
-            dist-artifact/**/cascade-*.zip
-            meta/SHA256SUMS
-          fail_on_unmatched_files: true
+          generate_release_notes: false
+          files: assets/*

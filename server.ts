@@ -5,7 +5,7 @@ import fs from "node:fs";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { vpnService } from "./server/vpnService";
-import { cascadeRouterProxy, ensureRouterDaemon, startRouterHealthLoop, restartRouterDaemon, CASCADE_ROUTER_PORT } from "./server/routerService";
+import { cascadeRouterProxy, ensureRouterDaemon, startRouterHealthLoop, restartRouterDaemon, stopRouterDaemon, CASCADE_ROUTER_PORT } from "./server/routerService";
 import { appPath, detectCompiled } from "./server/runtime";
 
 detectCompiled();
@@ -1520,13 +1520,28 @@ app.get("/api/vpn/status", (req, res) => {
     res.json({
       success: true,
       ...pubStatus(status),
-      processAlive: process.platform === "win32" ? vpnService.isTunnelProcessAlive() : undefined,
+      processAlive: vpnService.isTunnelProcessAlive(),
+      manager: vpnService.getStatus().manager,
       appliedNode: vpnService.appliedNode(),
       nodes,
     });
   } catch (error: any) {
     res.status(500).json({ success: false, error: error.message });
   }
+});
+
+// —— Задача 38: graceful stop фасада (localhost-only уже: bind 127.0.0.1) ——
+let shuttingDown = false;
+function gracefulShutdown(): void {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  try { stopRouterDaemon(); } catch {}
+  try { vpnService.stopTunnel(); } catch {}
+  setTimeout(() => process.exit(0), 400);
+}
+app.post("/api/app/shutdown", (_req, res) => {
+  res.json({ success: true, message: "shutting down" });
+  gracefulShutdown();
 });
 
 // —— Задача 37: first-run on-boarding визард ——

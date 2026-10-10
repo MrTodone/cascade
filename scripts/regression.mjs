@@ -8,10 +8,12 @@
 import { execFileSync } from "node:child_process";
 import { mkdirSync, writeFileSync, readFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import net from "node:net";
 
 const FACADE = "http://127.0.0.1:3000";
 const ROUTER = "http://127.0.0.1:19080";
 const TUNNEL_PROXY = "http://127.0.0.1:10808";
+const TUNNEL_PORT = Number(process.env.CASCADE_TUNNEL_PORT) || 10808;
 const CONFIG_OP = join(process.env.HOME || "", ".config", "opencode", "opencode.json");
 // Списанный короткий алиас ядра (задача 31). Держится в одном месте и только
 // для негативных регрессов: он обязан отвергаться диспетчером с 404.
@@ -86,6 +88,37 @@ function shell(args, opts = {}) {
   }
 }
 
+/** TCP-порт слушается? Кросс-платформенно (net.connect), без системных утилит. */
+function portOpen(host, port, timeoutMs = 1500) {
+  return new Promise((resolve) => {
+    const sock = net.connect({ host, port });
+    const done = (v) => { sock.destroy(); resolve(v); };
+    sock.setTimeout(timeoutMs);
+    sock.once("connect", () => done(true));
+    sock.once("timeout", () => done(false));
+    sock.once("error", () => done(false));
+  });
+}
+
+/**
+ * Egress через туннель :10808. Хелпер поверх `curl -x` (curl есть в macOS,
+ * Linux и Windows 10+). Возвращает { ok, loc, status }: loc — код страны из
+ * cloudflare trace, status — HTTP-код при statusOnly.
+ */
+function proxyEgress(target, { port = TUNNEL_PORT, timeoutMs = 15000, statusOnly = false } = {}) {
+  const args = ["-s", "-m", String(Math.ceil(timeoutMs / 1000)), "-x", `http://127.0.0.1:${port}`];
+  if (statusOnly) args.push("-o", "/dev/null", "-w", "%{http_code}");
+  args.push(target);
+  const r = shell(["curl", ...args], { timeout: timeoutMs + 3000 });
+  const out = String(r.stdout || "");
+  return {
+    ok: r.ok && (statusOnly ? out.trim().length > 0 : true),
+    stdout: out,
+    status: statusOnly ? out.trim() : null,
+    loc: (out.match(/loc=([A-Z]{2})/) || [])[1] || "",
+  };
+}
+
 async function main() {
   log("=== Cascade REGRESSION START " + new Date().toISOString() + " ===");
   log("cwd: " + process.cwd() + " | cascade facade: " + FACADE + " | router: " + ROUTER);
@@ -100,6 +133,12 @@ async function main() {
     log(`Исходный routing: mode=${initialMode} pinned=${initialPinnedId || "—"}`);
   } catch (e) {
     log(`WARN: не удалось прочитать /api/routing при старте (${e.message}) — режим считаем auto`);
+  }
+
+  // ── P0. Порты слушаются (кросс-платформенно, без системных утилит) ────────
+  for (const [label, base, port] of [["фасад :3000", FACADE, 3000], ["роутер :19080", ROUTER, 19080], ["туннель :10808", TUNNEL_PROXY, TUNNEL_PORT]]) {
+    const up = await portOpen("127.0.0.1", port);
+    record("P0", `${label} слушается`, up ? "PASS" : "WARN", up ? "TCP open" : "порт закрыт (сервис не поднят)");
   }
 
   // ── P1. Фасад :3000, дашборд, /v1/models = 62 ─────────────────────────────
@@ -258,15 +297,26 @@ async function main() {
 
   let loc = "";
   for (let i = 1; i <= 3 && !loc; i++) {
-    const eg = shell(["curl", "-s", "-m", "15", "-x", TUNNEL_PROXY, "https://www.cloudflare.com/cdn-cgi/trace"]);
-    if (eg.ok) loc = eg.stdout.match(/loc=(\S+)/)?.[1] || "";
+    const eg = proxyEgress("https://www.cloudflare.com/cdn-cgi/trace");
+    if (eg.loc) loc = eg.loc;
     if (!loc && i < 3) await new Promise((r) => setTimeout(r, 3000));
   }
   record("P8", "egress :10808 (loc ×3 retry)", loc ? "PASS" : "FAIL", loc ? `loc=${loc}` : "канал не отвечает на 3 попытках");
 
-  const oauth = shell(["curl", "-s", "-m", "15", "-x", TUNNEL_PROXY, "-o", "/dev/null", "-w", "%{http_code}", "https://openrouter.ai/api/v1/models"]);
-  record("P8", "openrouter /api/v1/models через туннель", oauth.ok && oauth.stdout ? "PASS" : "WARN",
-    oauth.ok ? `HTTP ${oauth.stdout.trim()}` : (oauth.stderr || "timeout/refused — tunnel-dependent"));
+  const oauth = proxyEgress("https://openrouter.ai/api/v1/models", { statusOnly: true });
+  record("P8", "openrouter /api/v1/models через туннель", oauth.ok ? "PASS" : "WARN",
+    oauth.ok ? `HTTP ${oauth.status}` : "нет ответа — туннель/лимит (прямые провайдеры работают)");
+
+  // darwin-only: туннель под launchd (на Linux/Windows sing-box — builtin-ребёнок,
+  // его живость уже покрыта порт-проверкой P0).
+  if (process.platform === "darwin") {
+    try {
+      const cfg = JSON.parse(readFileSync(join(process.cwd(), "cascade-run", "router", "config.json"), "utf8"));
+      const label = cfg?.vpn?.singboxServiceLabel || "com.cascade.singbox";
+      const r = shell(["/bin/launchctl", "list", label]);
+      record("P8", `launchd sing-box ${label}`, r.ok ? "PASS" : "WARN", r.ok ? "загружен" : "не загружен (прямые провайдеры работают)");
+    } catch { /* конфиг недоступен — пропускаем */ }
+  }
 
   // ── P9. Тела: 5MB → не 413; 12MB → честный 413 payload_too_large ──────────
   // Задача 31: собственное ядро отвечает диагностируемым кодом вместо разрыва

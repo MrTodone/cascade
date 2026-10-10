@@ -1,0 +1,29 @@
+# Cascade facade — example systemd user unit (Linux).
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp configs/systemd/cascade-server.service.example ~/.config/systemd/user/cascade-server.service
+#   #   replace <CASCADE_ROOT> and <SUBSCRIPTION_HOST> below
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now cascade-server.service
+#   systemctl --user status cascade-server.service
+#
+# To keep it running after logout:  loginctl enable-linger "$USER"
+# <SUBSCRIPTION_HOST> = host of your VPN subscription URL (kept out of the proxy).
+[Unit]
+Description=Cascade facade (router + dashboard + /v1)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=<CASCADE_ROOT>
+ExecStart=<CASCADE_ROOT>/cascade
+Environment=ALL_PROXY=http://127.0.0.1:10808
+Environment=HTTPS_PROXY=http://127.0.0.1:10808
+Environment=HTTP_PROXY=http://127.0.0.1:10808
+Environment=NO_PROXY=127.0.0.1,localhost,::1,<SUBSCRIPTION_HOST>,api.cloudflare.com,api.orcarouter.ai,console.groq.com,github.com,huggingface.co,ollama.com
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

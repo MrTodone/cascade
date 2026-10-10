@@ -85,6 +85,39 @@ curl http://localhost:3000/v1/models
 
 Направьте агента на `http://localhost:3000/v1` — готово.
 
+### Готовые сборки (v0.3.0)
+
+Самодостаточные сборки — **Node.js и Bun не нужны**: рантайм Bun, ядро роутера и sing-box уже внутри.
+Скачивайте со страницы [Releases](https://github.com/MrTodone/cascade/releases); проверяйте по `SHA256SUMS`
+(`sha256sum -c SHA256SUMS` в Linux, `shasum -a 256 -c SHA256SUMS` в macOS).
+
+| Платформа | Ассет | Менеджер туннеля |
+|---|---|---|
+| **Windows x64** | `cascade-v0.3.0-windows-x64.zip` | `builtin` (в комплекте `sing-box.exe`) |
+| **Linux x64** | `cascade-v0.3.0-linux-x64.tar.gz` | `builtin` (в комплекте `bin/sing-box`) |
+| **macOS arm64** | из исходников (ниже) | `launchd` |
+
+**Windows.** Распакуйте zip в любое место и запустите `START-Cascade.cmd`. При первом запуске SmartScreen
+может показать «Windows protected your PC» — нажмите **More info → Run anyway** (файл не подписан; это тот самый
+файл, что вы скачали из этого репозитория). Браузер откроет http://localhost:3000 с мастером первого запуска:
+вставьте ключи хотя бы одного провайдера и сохраните. Подробности — в `README-WINDOWS.txt` внутри zip.
+
+**Linux.**
+
+```sh
+tar xzf cascade-v0.3.0-linux-x64.tar.gz
+cd cascade-v0.3.0-linux-x64
+./START-cascade.sh          # или: ./cascade  (запускать из распакованного каталога)
+```
+
+Для автозапуска через systemd — шаблоны в `configs/systemd/`; полное руководство — в
+[`README-LINUX.txt`](README-LINUX.txt).
+
+**Менеджер туннеля** (`vpn.tunnelManager`): `auto` (по умолчанию) выбирает `launchd` в macOS и `builtin` в
+Windows/Linux; `builtin` поднимает встроенный sing-box дочерним процессом фасада; `external` только опрашивает
+уже запущенный туннель. Активный менеджер виден в `GET /api/vpn/status` → `manager`; кнопка **Стоп** в
+дашборде (`POST /api/app/shutdown`) корректно гасит роутер и туннель и завершает процесс на всех платформах.
+
 ## Подключение агентов
 
 **opencode** — добавьте локального провайдера (см. `configs/opencode.example.json`):
@@ -152,7 +185,7 @@ brew install sing-box
 
 **launchd-шаблоны** (`configs/launchd/`): `com.cascade.server.plist.example` (facade) и `com.cascade.singbox.plist.example` (туннель). В них плейсхолдеры `<BUN_BIN>`, `<CASCADE_ROOT>`, `<SINGBOX_BIN>`, `<SUBSCRIPTION_HOST>` — подставьте значения под свою машину.
 
-**Поддержка ОС, честно:** macOS — полный функционал (launchd KeepAlive + автоматическое ведение туннеля). Linux и Windows — ядро шлюза (facade :3000 + router :19080) работает нативно: Bun выпускает официальные сборки для обеих, а sing-box — нативный бинарник на всех трёх платформах. Автоматическое управление сервисами построено на launchd и вне macOS в v1 не реализовано — запускайте sing-box вручную или подключайте его через systemd / Планировщик заданий / NSSM. См. [FAQ](#faq) — полная матрица.
+**Поддержка ОС, честно:** macOS — полный функционал (launchd KeepAlive + автоматическое управление туннелем). **Linux (v0.3.0+)** и **Windows (v0.2.0+)** — ядро шлюза работает нативно из готовых сборок, а туннель управляется менеджером `builtin` (фасад поднимает встроенный sing-box дочерним процессом и направляет трафик). Автоматическое управление сервисами: launchd-шаблоны для macOS (`configs/launchd/`) и systemd-юниты для Linux (`configs/systemd/`); в Windows установщика сервиса пока нет — запускайте `START-Cascade.cmd` напрямую или подключайте через Планировщик заданий / NSSM. См. [FAQ](#faq) — полная матрица.
 
 **Политика NO_PROXY:** напрямую — loopback ipv4/ipv6, Google AI Studio, Cloudflare, OrcaRouter, консоль Groq, GitHub, HuggingFace, ollama.com, Mistral, LLM7, DashScope/Qwen, Z.ai. Трафик к OpenRouter и API-хосту Groq идёт через туннель (:10808).
 
@@ -208,9 +241,11 @@ bun scripts/regression.mjs   # PASS / WARN / FAIL; внешняя деграда
 
 **Нужны ли API-ключи?** Только для тех провайдеров, которые вы хотите использовать, — это бесплатные модели. Провайдер без ключа просто не активен.
 
+**Нужны ли Bun или Node?** Нет — готовые сборки (zip для Windows, tar.gz для Linux) самодостаточны: рантайм Bun, ядро роутера и sing-box уже внутри. Bun нужен только для запуска из исходников.
+
 **Работает ли без VPN / sing-box?** Да. Прямые провайдеры работают сразу; геоблокированные корректно выпадают через каскад. Ретранслятор стартует только при заданном `vpn.subscriptionUrl`.
 
-**Какая ОС?** macOS — полный функционал, включая launchd-шаблоны сервисов (`configs/launchd/`). Linux и Windows — ядро шлюза (facade :3000 + router :19080) работает нативно: Bun выпускает официальные сборки для обеих. Туннель — нативный бинарник sing-box на всех трёх платформах, но управление сервисами построено на launchd и вне macOS в v1 не реализовано — запускайте sing-box вручную или подключайте его через systemd / Планировщик заданий / NSSM. Проект разрабатывается и покрыт регрессионными тестами на macOS; для Linux и Windows ядро шлюза ожидаемо работает, но регрессионным сьютом не покрыто.
+**Какая ОС?** macOS — полный функционал, включая launchd-шаблоны сервисов (`configs/launchd/`). **Linux (v0.3.0+)** — готовая сборка `cascade-v0.3.0-linux-x64.tar.gz`, менеджер туннеля `builtin` (в комплекте sing-box), systemd-юниты в `configs/systemd/`. **Windows (v0.2.0+)** — готовая сборка (`cascade.exe` + `cascade-router.exe`), в комплекте `sing-box.exe`, мастер первого запуска, `START-Cascade.cmd`, менеджер туннеля `builtin`. Установка сервисов вне macOS — вручную (systemd / Планировщик заданий / NSSM). Проект разрабатывается и покрыт регрессионными тестами на macOS; ядро шлюза на Linux и Windows ожидаемо работает, но живая регрессия — только macOS.
 
 **Безопасны ли мои ключи?** Они остаются локальными на бэкенде, который слушает только loopback; дашборд их не получает.
 

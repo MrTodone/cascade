@@ -1,0 +1,26 @@
+# Cascade sing-box relay — example systemd user unit (Linux).
+#
+#   mkdir -p ~/.config/systemd/user
+#   cp configs/systemd/cascade-singbox.service.example ~/.config/systemd/user/cascade-singbox.service
+#   #   replace <CASCADE_ROOT> below
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now cascade-singbox.service
+#
+# The facade applies the chosen VLESS node to <CASCADE_ROOT>/cascade-run/singbox.json
+# and (tunnelManager=builtin, default on Linux) spawns sing-box itself. Install this
+# unit only if you prefer systemd to supervise sing-box instead
+# (set vpn.tunnelManager="external" or "builtin" accordingly in the router config).
+[Unit]
+Description=Cascade sing-box relay (VLESS Reality, :10808)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=<CASCADE_ROOT>/cascade-run
+ExecStart=<CASCADE_ROOT>/bin/sing-box run -D <CASCADE_ROOT>/cascade-run -c singbox.json
+Restart=always
+RestartSec=3
+
+[Install]
+WantedBy=default.target

@@ -431,6 +431,16 @@ export default function App() {
     return result;
   }, [models, searchQuery, selectedProvider, selectedTag, minScore, sortBy]);
 
+  const handleShutdown = async () => {
+    if (!window.confirm('Остановить Cascade? Фасад, роутер и туннель будут завершены.')) return;
+    try {
+      await fetch('/api/app/shutdown', { method: 'POST' });
+    } catch {
+      /* server likely already gone */
+    }
+    document.body.innerHTML = '<div style="font-family:system-ui;padding:2rem;color:#e2e8f0;background:#020617;height:100vh">Cascade остановлен. Закройте вкладку.</div>';
+  };
+
   if (needsSetup) {
     return <FirstRunWizard onDone={() => { setNeedsSetup(false); window.location.reload(); }} />;
   }
@@ -453,6 +463,7 @@ export default function App() {
         autoBestEnabled={vpnStatus.autoBestEnabled}
         onToggleVpn={() => handleToggleVpn()}
         onOpenVpnModal={() => setIsVpnModalOpen(true)}
+        onShutdown={handleShutdown}
       />
 
       {/* Main Content Area */}

@@ -1,14 +1,15 @@
 {
   "name": "cascade",
   "private": true,
-  "version": "0.2.0",
+  "version": "0.3.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server/dev-entry.ts",
     "build": "vite build && esbuild server/exe-entry.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node dist/server.cjs",
     "lint": "tsc --noEmit",
-    "dist:windows": "node scripts/dist-windows.mjs"
+    "dist:windows": "node scripts/dist-windows.mjs",
+    "dist:linux": "node scripts/dist-linux.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

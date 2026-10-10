@@ -207,3 +207,12 @@ function handleProxy(req: Request, res: Response) {
   console.log("[cascadeProxy] final:", method, JSON.stringify(headers));
   upstream.end();
 }
+export function stopRouterDaemon(): void {
+  if (routerProcess !== null && routerProcess.exitCode === null) {
+    try {
+      routerProcess.kill("SIGTERM");
+    } catch {}
+    routerProcess = null;
+    starting = false;
+  }
+}

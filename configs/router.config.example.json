@@ -83,6 +83,9 @@
     "_comment": "Empty = relay disabled (graceful): direct providers keep working, geo-blocked ones just fail over. Set the URL of YOUR OWN subscription to enable the VLESS-Reality relay.",
     "subscriptionUrl": "",
     "singboxServiceLabel": "",
-    "_commentServiceLabel": "Empty = default 'com.cascade.singbox' (matches configs/launchd/com.cascade.singbox.plist.example). For an existing local install, set the ACTUAL launchd service label here so the tunnel restart keeps working."
+    "_commentServiceLabel": "Empty = default 'com.cascade.singbox' (matches configs/launchd/com.cascade.singbox.plist.example). For an existing local install, set the ACTUAL launchd service label here so the tunnel restart keeps working.",
+    "tunnelManager": "auto",
+    "_commentTunnelManager": "auto (default): darwin→launchd, win32/linux→builtin. Values: auto|launchd|builtin|external. 'builtin' spawns sing-box as a child on any platform; 'external' only probes status.",
+    "singboxBinary": ""
   }
 }

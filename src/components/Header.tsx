@@ -27,6 +27,7 @@ interface HeaderProps {
   autoBestEnabled?: boolean;
   onToggleVpn: () => void;
   onOpenVpnModal: () => void;
+  onShutdown?: () => void;
 }
 
 export const Header: React.FC<HeaderProps> = ({
@@ -44,6 +45,7 @@ export const Header: React.FC<HeaderProps> = ({
   autoBestEnabled,
   onToggleVpn,
   onOpenVpnModal,
+  onShutdown,
 }) => {
   return (
     <header className="border-b border-slate-800 bg-slate-950/80 backdrop-blur-md sticky top-0 z-30">
@@ -195,6 +197,19 @@ export const Header: React.FC<HeaderProps> = ({
               </span>
             )}
           </button>
+
+          {onShutdown && (
+            <button
+              id="app-shutdown-btn"
+              type="button"
+              onClick={onShutdown}
+              title="Остановить Cascade (фасад + роутер + туннель)"
+              className="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-red-950/60 border border-slate-700 hover:border-red-600/60 text-slate-300 hover:text-red-300 text-xs font-medium flex items-center gap-1.5 transition-all"
+            >
+              <span className="w-2.5 h-2.5 rounded-sm bg-red-500/80" />
+              <span className="hidden sm:inline">Stop</span>
+            </button>
+          )}
         </div>
       </div>
     </header>
