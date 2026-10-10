@@ -21,8 +21,8 @@ function fail(msg) {
   process.exit(1);
 }
 
-const rootRes = spawnSync("npm", ["root", "-g"], { encoding: "utf8" });
-if (rootRes.status !== 0) fail("cannot resolve npm global root");
+const rootRes = spawnSync("npm", ["root", "-g"], { encoding: "utf8", shell: process.platform === "win32" });
+if (rootRes.status !== 0 || !rootRes.stdout) fail(`cannot resolve npm global root (${rootRes.error?.message || rootRes.status})`);
 const pkgDir = path.join(rootRes.stdout.trim(), "@mrtodone", "cascade");
 const example = path.join(pkgDir, "configs", "router.config.example.json");
 if (!fs.existsSync(example)) fail(`example config missing: ${example}`);
@@ -57,9 +57,13 @@ child.on("exit", (c) => { exitCode = c ?? 1; });
 
 try {
   if (!(await waitUp(`${BASE}/`))) fail("facade did not respond 200");
-  const models = await get(`${BASE}/v1/models`);
+  if (!(await waitUp(`${ROUTER}/health`, 45))) fail("bundled router /health did not respond 200");
+  let models = 0;
+  for (let i = 0; i < 20 && models !== 200; i++) {
+    models = await get(`${BASE}/v1/models`);
+    if (models !== 200) await new Promise((r) => setTimeout(r, 1000));
+  }
   if (models !== 200) fail(`/v1/models returned ${models}`);
-  if (!(await waitUp(`${ROUTER}/health`, 30))) fail("bundled router /health did not respond 200");
   console.log(`OK facade=200 models=200 router=200`);
 
   const r = await fetch(`${BASE}/api/app/shutdown`, { method: "POST", signal: AbortSignal.timeout(5000) }).catch(() => null);
