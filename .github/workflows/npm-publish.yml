@@ -1,0 +1,62 @@
+name: npm-publish
+
+# Publishes the PREBUILT release tarball (cascade-npm-v<VERSION>.tgz) to the npm
+# registry with provenance. The tarball is taken verbatim from the GitHub
+# release for the given tag — nothing is rebuilt here.
+#
+# Requires the repo secret NPM_TOKEN (an npm Automation/granular token with
+# publish rights for @mrtodone). Provenance is signed via GitHub OIDC, which
+# needs `id-token: write`.
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag whose cascade-npm-*.tgz asset will be published"
+        required: true
+        default: "v0.4.0"
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  publish:
+    name: publish to npm
+    runs-on: ubuntu-latest
+    env:
+      TAG: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.tag || github.ref_name }}
+    steps:
+      - name: fetch prebuilt tarball from the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          echo "release tag: ${TAG}"
+          gh release download "${TAG}" \
+            --repo "${{ github.repository }}" \
+            --pattern 'cascade-npm-*.tgz' \
+            --dir .
+          ls -la cascade-npm-*.tgz
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: "https://registry.npmjs.org"
+
+      - name: publish with provenance (idempotent)
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+          VER="${TAG#v}"
+          TGZ="cascade-npm-v${VER}.tgz"
+          echo "target: @mrtodone/cascade@${VER} from ${TGZ}"
+          if npm view "@mrtodone/cascade@${VER}" version >/dev/null 2>&1; then
+            echo "already published: @mrtodone/cascade@${VER} — skipping publish"
+            exit 0
+          fi
+          npm publish "./${TGZ}" --provenance --access public
