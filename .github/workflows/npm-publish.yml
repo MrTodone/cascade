@@ -18,11 +18,13 @@ jobs:
           node-version: 22
           registry-url: 'https://registry.npmjs.org'
           always-auth: true
-      - env:
+      - name: download and publish
+        env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          TAG: ${{ github.event.inputs.tag }}
         run: |
           set -euo pipefail
-          TAG=${{ github.event.inputs.tag }}
           gh release download "$TAG" --repo "${{ github.repository }}" --pattern 'cascade-npm-*.tgz' --dir .
           VER="${TAG#v}"
           TGZ="cascade-npm-v${VER}.tgz"
@@ -31,5 +33,3 @@ jobs:
             exit 0
           fi
           npm publish "./${TGZ}" --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
