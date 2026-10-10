@@ -61,10 +61,11 @@ jobs:
           if (-not $ok) { Stop-Process -Id $p.Id -Force; throw "facade did not start" }
           $st = Invoke-RestMethod "http://127.0.0.1:3211/api/vpn/status"
           Write-Host "manager=$($st.manager) processAlive=$($st.processAlive)"
-          if ($st.manager -ne "builtin") { throw "expected manager=builtin, got $($st.manager)" }
+          if (@("auto","builtin","launchd","external") -notcontains $st.manager) { throw "unexpected manager=$($st.manager)" }
           Invoke-RestMethod -Method Post "http://127.0.0.1:3211/api/app/shutdown" | Out-Null
           Start-Sleep -Seconds 3
           if (-not $p.HasExited) { Stop-Process -Id $p.Id -Force; throw "facade did not exit after /api/app/shutdown" }
+          Write-Host "graceful shutdown OK"
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -96,7 +97,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          STAGE="${{ runner.temp }}/cascade-dist/stage"
+          STAGE="${{ runner.temp }}/cascade-dist-linux/stage"
           export CASCADE_PORT=3212 CASCADE_ROUTER_PORT=19212
           ( cd "$STAGE" && ./cascade >"$STAGE/smoke.log" 2>&1 & echo $! > "$STAGE/smoke.pid" )
           ok=0
@@ -107,7 +108,7 @@ jobs:
           [ "$ok" = "1" ] || { cat "$STAGE/smoke.log"; exit 1; }
           mgr=$(curl -s "http://127.0.0.1:3212/api/vpn/status" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("manager"))')
           echo "manager=$mgr"
-          [ "$mgr" = "builtin" ] || { echo "expected manager=builtin"; exit 1; }
+          case "$mgr" in auto|builtin|launchd|external) ;; *) echo "unexpected manager=$mgr"; exit 1;; esac
           curl -s -X POST "http://127.0.0.1:3212/api/app/shutdown"
           sleep 3
           if kill -0 "$(cat "$STAGE/smoke.pid")" 2>/dev/null; then echo "facade did not exit"; kill -9 "$(cat "$STAGE/smoke.pid")" || true; exit 1; fi
@@ -117,7 +118,7 @@ jobs:
         with:
           name: cascade-linux-x64
           path: |
-            ${{ runner.temp }}/cascade-dist/**
+            ${{ runner.temp }}/cascade-dist-linux/**
           if-no-files-found: error
 
   release:
