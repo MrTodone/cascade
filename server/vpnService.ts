@@ -15,7 +15,7 @@ import os from "node:os";
 import crypto from "node:crypto";
 import { execFile, spawn, type ChildProcess } from "node:child_process";
 import { probeNodes } from "../scripts/probe-core.mjs";
-import { appPath } from "./runtime";
+import { appPath, dataPath } from "./runtime";
 
 // Task 11: transports the installed sing-box (1.14.1 on this host) cannot parse
 // at all — `sing-box check` exits FATAL ("unknown transport type: xhttp").
@@ -98,7 +98,7 @@ export interface VpnStatus {
 // (cascade-run/router/config.json → vpn.subscriptionUrl). No URL is hardcoded
 // in code: an empty/missing value disables the relay gracefully (direct
 // providers keep working). See configs/router.config.example.json.
-const ROUTER_CONFIG_PATH = appPath("cascade-run", "router", "config.json");
+const ROUTER_CONFIG_PATH = dataPath("cascade-run", "router", "config.json");
 
 function loadSubscriptionUrlFromConfig(): string {
   try {
@@ -182,12 +182,12 @@ class VpnService {
   private egressProbing = false;
   private egressProbeById: Map<string, { ok: boolean; latencyMs: number; loc: string; checkedAt: string }> = new Map();
   private lastEgressProbe: { total: number; ok: number; checkedAt: string } | null = null;
-  private readonly vpnEgressProbePath = appPath("cascade-run", "vpn-egress-probe.json");
+  private readonly vpnEgressProbePath = dataPath("cascade-run", "vpn-egress-probe.json");
 
-  private readonly singboxConfigPath = appPath("cascade-run", "singbox.json");
-  private readonly singboxBakOrig = appPath("cascade-run", "singbox.json.bak-orig");
-  private readonly singboxPreApply = appPath("cascade-run", "singbox.json.pre-apply");
-  private readonly tunnelStatePath = appPath("cascade-run", "tunnel-state.json");
+  private readonly singboxConfigPath = dataPath("cascade-run", "singbox.json");
+  private readonly singboxBakOrig = dataPath("cascade-run", "singbox.json.bak-orig");
+  private readonly singboxPreApply = dataPath("cascade-run", "singbox.json.pre-apply");
+  private readonly tunnelStatePath = dataPath("cascade-run", "tunnel-state.json");
 
   constructor() {
     // Subscription source is config-only (vpn.subscriptionUrl). Empty/missing →
@@ -482,7 +482,7 @@ class VpnService {
     // (hourly diffs: which lines were added/removed). Same secret-density as
     // cascade-run/singbox.json — local only.
     try {
-      fs.writeFileSync(appPath("cascade-run", "vpn-subscription-cache.txt"), text);
+      fs.writeFileSync(dataPath("cascade-run", "vpn-subscription-cache.txt"), text);
     } catch (e: any) {
       console.warn("[VPN Service] subscription cache write failed:", e?.message || e);
     }
@@ -900,10 +900,10 @@ class VpnService {
     }
     return new Promise((resolve) => {
       try {
-        fs.mkdirSync(appPath("cascade-run"), { recursive: true });
+        fs.mkdirSync(dataPath("cascade-run"), { recursive: true });
         const bin = singboxBin();
-        const proc = spawn(bin, ["run", "-D", appPath("cascade-run"), "-c", "singbox.json"], {
-          cwd: appPath("cascade-run"),
+        const proc = spawn(bin, ["run", "-D", dataPath("cascade-run"), "-c", "singbox.json"], {
+          cwd: dataPath("cascade-run"),
           stdio: "ignore",
         });
         proc.on("exit", () => {
@@ -932,11 +932,11 @@ class VpnService {
     }
     return new Promise((resolve) => {
       try {
-        fs.mkdirSync(appPath("cascade-run"), { recursive: true });
+        fs.mkdirSync(dataPath("cascade-run"), { recursive: true });
         const proc = spawn(
           singboxBin(),
-          ["run", "-D", appPath("cascade-run"), "-c", "singbox.json"],
-          { cwd: appPath("cascade-run"), stdio: "ignore", windowsHide: true }
+          ["run", "-D", dataPath("cascade-run"), "-c", "singbox.json"],
+          { cwd: dataPath("cascade-run"), stdio: "ignore", windowsHide: true }
         );
         proc.on("exit", () => {
           if (this.singboxProc === proc) this.singboxProc = null;

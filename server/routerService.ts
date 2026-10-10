@@ -3,19 +3,20 @@ import path from "node:path";
 import { mkdirSync } from "node:fs";
 import { spawn, ChildProcess } from "node:child_process";
 import type { Request, Response, NextFunction } from "express";
-import { appPath, appRoot, isCompiled } from "./runtime";
+import { appPath, dataPath, isCompiled, isNpm } from "./runtime";
 
 export const CASCADE_ROUTER_PORT = Number(process.env.CASCADE_ROUTER_PORT) || 19080;
 const CASCADE_ROUTER_URL = `http://127.0.0.1:${CASCADE_ROUTER_PORT}`;
 const TUNNEL_PROXY = "http://127.0.0.1:10808";
 
-// Пути резолвятся от APP_ROOT: в dev это cwd (историческое поведение), в
-// compiled-exe — каталог рядом с исполняемым файлом (cascade.exe).
-const rootDir = appRoot();
+// Ассеты (ядро роутера, каталог) резолвятся от APP_ROOT: dev → cwd,
+// compiled → рядом с exe, npm → каталог пакета (CASCADE_PKG_ROOT).
+// Пользовательские данные (config.json, state) — от DATA_ROOT: dev/compiled → cwd/exe,
+// npm → CASCADE_HOME (~/.cascade).
 // Задача 31, этап 3: роутер — собственное ядро cascade-router/server.ts.
-// Прежний cascade-run/router-run.mjs (обёртка над списанным внешним пакетом) больше не спавнится.
 const routerRunner = appPath("cascade-router", "server.ts");
-const routerConfigDir = appPath("cascade-run", "router");
+const routerNpmRunner = appPath("dist", "router", "server.mjs");
+const routerConfigDir = dataPath("cascade-run", "router");
 const routerConfigFile = path.join(routerConfigDir, "config.json");
 const routerStateDir = path.join(routerConfigDir, "state");
 const routerCatalog = appPath("cascade-router", "catalog.json");
@@ -76,7 +77,8 @@ const routerEnv = {
 const routerBin = isCompiled()
   ? process.env.CASCADE_ROUTER_BIN || appPath(process.platform === "win32" ? "cascade-router.exe" : "cascade-router.bin")
   : process.execPath;
-routerProcess = spawn(routerBin, isCompiled() ? [] : [routerRunner], {
+const routerArgs = isCompiled() ? [] : isNpm() ? [routerNpmRunner] : [routerRunner];
+routerProcess = spawn(routerBin, routerArgs, {
   env: routerEnv,
   stdio: ["ignore", "ignore", "pipe"],
   detached: false,

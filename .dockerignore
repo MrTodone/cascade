@@ -1,0 +1,15 @@
+node_modules
+dist
+backups
+cascade-run
+cascade-dist
+cascade-dist-linux
+cascade-dist-windows
+.git
+.github
+*.log
+*.tgz
+.env
+README-WINDOWS.txt
+README-LINUX.txt
+START-cascade.sh

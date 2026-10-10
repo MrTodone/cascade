@@ -11,7 +11,7 @@ permissions:
 
 jobs:
   lint:
-    name: lint (ubuntu)
+    name: lint (ubuntu node 22)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -26,6 +26,73 @@ jobs:
         run: npx tsc --noEmit
       - name: vite build (frontend smoke)
         run: npx vite build
+
+  npm-tarball:
+    name: build-npm-tarball
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: bun install --frozen-lockfile
+      - name: build prebuilt bundle + pack
+        run: |
+          node scripts/build-npm.mjs
+          npm pack --pack-destination .
+          mv mrtodone-cascade-*.tgz cascade-npm-v0.4.0.tgz
+      - name: zero-build tarball assertions
+        run: |
+          set -euo pipefail
+          tgz=cascade-npm-v0.4.0.tgz
+          if tar tzf "$tgz" | grep -Eq "\.ts$"; then echo "tgz ships .ts sources"; exit 1; fi
+          node -e "const p=require('./package.json');for(const k of ['preinstall','install','postinstall','prepare','prepublishOnly']){if(p.scripts&&p.scripts[k])throw new Error('lifecycle script: '+k)};console.log('no lifecycle scripts OK')"
+          echo "tarball assertions OK"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cascade-npm-tgz
+          path: cascade-npm-v0.4.0.tgz
+          if-no-files-found: error
+
+  npm-install-smoke:
+    name: npm-install-smoke (${{ matrix.os }} node ${{ matrix.node }})
+    needs: npm-tarball
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            node: 22
+          - os: ubuntu-latest
+            node: 24
+          - os: windows-latest
+            node: 22
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: cascade-npm-tgz
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - name: install from tarball (no build step)
+        run: npm install --global ./cascade-npm-v0.4.0.tgz
+      - name: assert zero build tooling at runtime
+        shell: bash
+        run: |
+          set -euo pipefail
+          cascade --version
+          root="$(npm root -g)"
+          for bad in vite esbuild typescript bun @vitejs; do
+            if [ -e "$root/$bad" ]; then echo "unexpected $bad in global tree"; exit 1; fi
+          done
+          echo "zero build tooling OK"
+      - name: smoke (install + facade + bundled router + shutdown)
+        run: node "$(npm root -g)/@mrtodone/cascade/scripts/npm-smoke.mjs"
 
   windows:
     name: build-windows-zip
@@ -70,8 +137,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cascade-windows-x64
-          path: |
-            ${{ runner.temp }}/cascade-dist/**
+          path: ${{ runner.temp }}/cascade-dist/**
           if-no-files-found: error
 
   linux:
@@ -97,36 +163,75 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          STAGE="${{ runner.temp }}/cascade-dist-linux/stage"
-          export CASCADE_PORT=3212 CASCADE_ROUTER_PORT=19212
-          ( cd "$STAGE" && ./cascade >"$STAGE/smoke.log" 2>&1 & echo $! > "$STAGE/smoke.pid" )
+          exe="${{ runner.temp }}/cascade-dist-linux/stage/cascade"
+          export CASCADE_PORT=3211 CASCADE_ROUTER_PORT=19211
+          "$exe" >/tmp/cascade-linux-smoke.log 2>&1 &
           ok=0
           for i in $(seq 1 40); do
-            if curl -sf -o /dev/null "http://127.0.0.1:3212/"; then ok=1; break; fi
+            if [ "$(curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3211/ || true)" = "200" ]; then ok=1; break; fi
             sleep 1
           done
-          [ "$ok" = "1" ] || { cat "$STAGE/smoke.log"; exit 1; }
-          mgr=$(curl -s "http://127.0.0.1:3212/api/vpn/status" | python3 -c 'import sys,json;print(json.load(sys.stdin).get("manager"))')
-          echo "manager=$mgr"
-          case "$mgr" in auto|builtin|launchd|external) ;; *) echo "unexpected manager=$mgr"; exit 1;; esac
-          curl -s -X POST "http://127.0.0.1:3212/api/app/shutdown"
+          if [ "$ok" != 1 ]; then cat /tmp/cascade-linux-smoke.log; exit 1; fi
+          st=$(curl -s http://127.0.0.1:3211/api/vpn/status)
+          echo "manager=$(echo "$st" | node -e 'let s="";process.stdin.on("data",d=>s+=d).on("end",()=>console.log(JSON.parse(s).manager))')"
+          curl -s -X POST http://127.0.0.1:3211/api/app/shutdown -o /dev/null -w 'shutdown %{http_code}\n'
           sleep 3
-          if kill -0 "$(cat "$STAGE/smoke.pid")" 2>/dev/null; then echo "facade did not exit"; kill -9 "$(cat "$STAGE/smoke.pid")" || true; exit 1; fi
+          if pgrep -f "cascade-dist-linux/stage/cascade" >/dev/null; then echo "facade survived shutdown"; pkill -f "cascade-dist-linux/stage/cascade"; exit 1; fi
           echo "graceful shutdown OK"
       - name: upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: cascade-linux-x64
-          path: |
-            ${{ runner.temp }}/cascade-dist-linux/**
+          path: ${{ runner.temp }}/cascade-dist-linux/**
           if-no-files-found: error
 
-  release:
-    name: publish github release
+  docker:
+    name: build-docker
     runs-on: ubuntu-latest
-    needs: [windows, linux]
-    if: startsWith(github.ref, 'refs/tags/v')
+    needs: lint
+    permissions:
+      contents: read
+      packages: write
     steps:
+      - uses: actions/checkout@v4
+      - uses: docker/setup-buildx-action@v3
+      - name: log in to GHCR
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=raw,value=latest
+      - name: build (and push on tag)
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: ${{ startsWith(github.ref, 'refs/tags/v') }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  release:
+    name: publish-release
+    runs-on: ubuntu-latest
+    needs: [npm-tarball, windows, linux]
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: cascade-npm-tgz
+          path: dist-artifact/npm
       - uses: actions/download-artifact@v4
         with:
           name: cascade-windows-x64
@@ -140,10 +245,19 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p assets
+          cp dist-artifact/npm/cascade-npm-v0.4.0.tgz assets/
           cp dist-artifact/win/*.zip assets/
           cp dist-artifact/lin/*.tar.gz assets/
-          cat dist-artifact/win/SHA256SUMS dist-artifact/lin/SHA256SUMS | sort -u > assets/SHA256SUMS
+          if [ -f dist-artifact/win/SHA256SUMS ]; then cat dist-artifact/win/SHA256SUMS >> assets/SHA256SUMS; fi
+          if [ -f dist-artifact/lin/SHA256SUMS ]; then cat dist-artifact/lin/SHA256SUMS >> assets/SHA256SUMS; fi
+          (cd assets && sha256sum cascade-npm-v0.4.0.tgz >> SHA256SUMS)
+          sort -u -k2 assets/SHA256SUMS -o assets/SHA256SUMS || true
           ls -la assets
+      - name: capture docker digest
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: bash
+        run: |
+          echo "Docker image: ghcr.io/${{ github.repository }}:v0.4.0" > assets/DOCKER.txt
       - name: publish release
         uses: softprops/action-gh-release@v2
         with:

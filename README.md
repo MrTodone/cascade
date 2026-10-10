@@ -86,17 +86,46 @@ wizard** (`GET /api/setup/status` → `GET /api/setup/apply`); it writes
 `cascade-run/router/config.json` + `.env` from the values you paste, then
 restarts the router engine.
 
-### Prebuilt binaries (recommended, v0.3.0)
+### npm (prebuilt tarball, recommended)
+
+The published tarball ships a **prebuilt, dependency-free bundle** — installing it
+runs **no build step** and drags in **no build tooling** (no Vite, esbuild,
+TypeScript or Bun). Only **Node.js >= 22** is required.
+
+```bash
+npm install -g https://github.com/MrTodone/cascade/releases/download/v0.4.0/cascade-npm-v0.4.0.tgz
+cascade --version
+cascade start        # facade on http://127.0.0.1:3000, router on 127.0.0.1:19080
+```
+
+User data (config, `.env`, tunnel state) lives in `~/.cascade` and can be moved
+with `CASCADE_HOME=/some/dir cascade start`.
+
+### Docker
+
+```bash
+docker run -d --name cascade \
+  -p 3000:3000 -p 19080:19080 \
+  -v cascade-data:/data \
+  ghcr.io/mrtodone/cascade:v0.4.0
+```
+
+or, from the repo: `docker compose up -d`. User data is persisted on the `/data`
+volume (`CASCADE_HOME=/data`). Available tags: `latest`, `v0.4.0`, `0.4`.
+
+### Prebuilt binaries (v0.4.0)
 
 Self-contained downloads — **no Bun/Node required** (the Bun runtime, the router
 engine and sing-box are bundled). Grab them from the
 [Releases](https://github.com/MrTodone/cascade/releases) page; verify with
 `SHA256SUMS` (`sha256sum -c SHA256SUMS` on Linux, `shasum -a 256 -c SHA256SUMS` on macOS).
 
-| Platform | Asset | Tunnel manager |
+| Channel | Asset | Tunnel manager |
 |---|---|---|
-| **Windows x64** | `cascade-v0.3.0-windows-x64.zip` | `builtin` (bundled `sing-box.exe`) |
-| **Linux x64** | `cascade-v0.3.0-linux-x64.tar.gz` | `builtin` (bundled `bin/sing-box`) |
+| **npm** (any OS) | `cascade-npm-v0.4.0.tgz` | inherited from the host contract |
+| **Docker** (linux/amd64) | `ghcr.io/mrtodone/cascade:v0.4.0` | `builtin` |
+| **Windows x64** | `cascade-v0.4.0-windows-x64.zip` | `builtin` (bundled `sing-box.exe`) |
+| **Linux x64** | `cascade-v0.4.0-linux-x64.tar.gz` | `builtin` (bundled `bin/sing-box`) |
 | **macOS arm64** | from source (below) | `launchd` |
 
 **Windows.** Unpack the zip anywhere and double-click `START-Cascade.cmd`. On
@@ -109,7 +138,7 @@ first-run wizard: paste API keys for at least one provider and save. Details:
 **Linux.**
 
 ```sh
-tar xzf cascade-v0.3.0-linux-x64.tar.gz
+tar xzf cascade-v0.4.0-linux-x64.tar.gz
 cd cascade-v0.3.0-linux-x64
 ./START-cascade.sh          # or: ./cascade  (run from the unpacked directory)
 ```
@@ -250,11 +279,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 **Do I need API keys?** Only for the providers you want to use — they are free-tier models. A provider without a key is simply inactive.
 
-**Do I need Bun or Node?** No — the prebuilt binaries (Windows zip, Linux tarball) are self-contained: the Bun runtime, the router engine and sing-box are bundled. You only need Bun to run from source.
+**Do I need Bun or Node?** For the prebuilt binaries (Windows zip, Linux tarball) — no: the Bun runtime, the router engine and sing-box are bundled. For the npm and Docker channels — only **Node.js >= 22** (the tarball ships prebuilt JS, so there is no build step and no dev tooling installs). You only need Bun to run from source.
 
 **Does it work without VPN / sing-box?** Yes. Direct providers work immediately; geo-blocked ones gracefully fall over through the cascade. The relay starts only when `vpn.subscriptionUrl` is configured. On Windows the dashboard panels for VPN sync/pause/stop manage `sing-box.exe` as a child process of `cascade.exe` (no services installed); live egress on Windows is not exercised in CI — a failing subscription node disables the relay gracefully and direct providers keep working.
 
-**Which OS?** macOS — full functionality, including launchd service templates (`configs/launchd/`). **Linux (v0.3.0+)** — prebuilt `cascade-v0.3.0-linux-x64.tar.gz`, `builtin` tunnel manager (bundled sing-box), systemd units in `configs/systemd/`. **Windows (v0.2.0+)** — prebuilt zip (`cascade.exe` + `cascade-router.exe`), bundled `sing-box.exe`, a first-run wizard in the dashboard, and `START-Cascade.cmd`, with the `builtin` tunnel manager. Service installation outside macOS is manual (systemd / Task Scheduler / NSSM). The project is developed and regression-tested on macOS; the Linux and Windows core gateways are expected to work, but the live regression suite is macOS-only.
+**Which OS?** macOS — full functionality, including launchd service templates (`configs/launchd/`). **Linux (v0.3.0+)** — prebuilt `cascade-v0.4.0-linux-x64.tar.gz`, `builtin` tunnel manager (bundled sing-box), systemd units in `configs/systemd/`. **Windows (v0.2.0+)** — prebuilt zip (`cascade.exe` + `cascade-router.exe`), bundled `sing-box.exe`, a first-run wizard in the dashboard, and `START-Cascade.cmd`, with the `builtin` tunnel manager. Service installation outside macOS is manual (systemd / Task Scheduler / NSSM). The project is developed and regression-tested on macOS; the Linux and Windows core gateways are expected to work, but the live regression suite is macOS-only.
 
 **Are my keys safe?** They stay local, on a loopback-only backend; the dashboard never receives them.
 

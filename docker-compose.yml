@@ -1,0 +1,19 @@
+services:
+  cascade:
+    build: .
+    image: ghcr.io/mrtodone/cascade:latest
+    container_name: cascade
+    ports:
+      - "3000:3000"   # facade (OpenAI-compatible API + web UI)
+      - "19080:19080" # router core
+    volumes:
+      - cascade-data:/data
+    environment:
+      CASCADE_HOME: /data
+      CASCADE_DOCKER: "1"
+      CASCADE_PORT: "3000"
+      CASCADE_ROUTER_PORT: "19080"
+    restart: unless-stopped
+
+volumes:
+  cascade-data:

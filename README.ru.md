@@ -85,7 +85,33 @@ curl http://localhost:3000/v1/models
 
 Направьте агента на `http://localhost:3000/v1` — готово.
 
-### Готовые сборки (v0.3.0)
+### npm (готовая сборка, рекомендуется)
+
+Публикуемый tarball содержит **готовый самодостаточный бандл** — установка **не запускает сборку** и
+не тянет **инструменты сборки** (ни Vite, ни esbuild, ни TypeScript, ни Bun). Нужен только **Node.js >= 22**.
+
+```bash
+npm install -g https://github.com/MrTodone/cascade/releases/download/v0.4.0/cascade-npm-v0.4.0.tgz
+cascade --version
+cascade start        # facade на http://127.0.0.1:3000, роутер на 127.0.0.1:19080
+```
+
+Данные пользователя (конфиг, `.env`, состояние туннеля) лежат в `~/.cascade` — каталог меняется
+переменной `CASCADE_HOME=/some/dir cascade start`.
+
+### Docker
+
+```bash
+docker run -d --name cascade \
+  -p 3000:3000 -p 19080:19080 \
+  -v cascade-data:/data \
+  ghcr.io/mrtodone/cascade:v0.4.0
+```
+
+или, из репозитория: `docker compose up -d`. Данные сохраняются в томе `/data`
+(`CASCADE_HOME=/data`). Доступные теги: `latest`, `v0.4.0`, `0.4`.
+
+### Готовые сборки (v0.4.0)
 
 Самодостаточные сборки — **Node.js и Bun не нужны**: рантайм Bun, ядро роутера и sing-box уже внутри.
 Скачивайте со страницы [Releases](https://github.com/MrTodone/cascade/releases); проверяйте по `SHA256SUMS`
@@ -93,8 +119,10 @@ curl http://localhost:3000/v1/models
 
 | Платформа | Ассет | Менеджер туннеля |
 |---|---|---|
-| **Windows x64** | `cascade-v0.3.0-windows-x64.zip` | `builtin` (в комплекте `sing-box.exe`) |
-| **Linux x64** | `cascade-v0.3.0-linux-x64.tar.gz` | `builtin` (в комплекте `bin/sing-box`) |
+| **npm** (любая ОС) | `cascade-npm-v0.4.0.tgz` | наследуется от контракта хоста |
+| **Docker** (linux/amd64) | `ghcr.io/mrtodone/cascade:v0.4.0` | `builtin` |
+| **Windows x64** | `cascade-v0.4.0-windows-x64.zip` | `builtin` (в комплекте `sing-box.exe`) |
+| **Linux x64** | `cascade-v0.4.0-linux-x64.tar.gz` | `builtin` (в комплекте `bin/sing-box`) |
 | **macOS arm64** | из исходников (ниже) | `launchd` |
 
 **Windows.** Распакуйте zip в любое место и запустите `START-Cascade.cmd`. При первом запуске SmartScreen
@@ -105,7 +133,7 @@ curl http://localhost:3000/v1/models
 **Linux.**
 
 ```sh
-tar xzf cascade-v0.3.0-linux-x64.tar.gz
+tar xzf cascade-v0.4.0-linux-x64.tar.gz
 cd cascade-v0.3.0-linux-x64
 ./START-cascade.sh          # или: ./cascade  (запускать из распакованного каталога)
 ```
@@ -241,11 +269,11 @@ bun scripts/regression.mjs   # PASS / WARN / FAIL; внешняя деграда
 
 **Нужны ли API-ключи?** Только для тех провайдеров, которые вы хотите использовать, — это бесплатные модели. Провайдер без ключа просто не активен.
 
-**Нужны ли Bun или Node?** Нет — готовые сборки (zip для Windows, tar.gz для Linux) самодостаточны: рантайм Bun, ядро роутера и sing-box уже внутри. Bun нужен только для запуска из исходников.
+**Нужны ли Bun или Node?** Нет — готовые сборки (zip для Windows, tar.gz для Linux) самодостаточны: рантайм Bun, ядро роутера и sing-box уже внутри. Для каналов npm и Docker нужен только **Node.js >= 22** (в tarball уже готовая сборка — ни сборки, ни инструментов сборки). Bun нужен только для запуска из исходников.
 
 **Работает ли без VPN / sing-box?** Да. Прямые провайдеры работают сразу; геоблокированные корректно выпадают через каскад. Ретранслятор стартует только при заданном `vpn.subscriptionUrl`.
 
-**Какая ОС?** macOS — полный функционал, включая launchd-шаблоны сервисов (`configs/launchd/`). **Linux (v0.3.0+)** — готовая сборка `cascade-v0.3.0-linux-x64.tar.gz`, менеджер туннеля `builtin` (в комплекте sing-box), systemd-юниты в `configs/systemd/`. **Windows (v0.2.0+)** — готовая сборка (`cascade.exe` + `cascade-router.exe`), в комплекте `sing-box.exe`, мастер первого запуска, `START-Cascade.cmd`, менеджер туннеля `builtin`. Установка сервисов вне macOS — вручную (systemd / Планировщик заданий / NSSM). Проект разрабатывается и покрыт регрессионными тестами на macOS; ядро шлюза на Linux и Windows ожидаемо работает, но живая регрессия — только macOS.
+**Какая ОС?** macOS — полный функционал, включая launchd-шаблоны сервисов (`configs/launchd/`). **Linux (v0.3.0+)** — готовая сборка `cascade-v0.4.0-linux-x64.tar.gz`, менеджер туннеля `builtin` (в комплекте sing-box), systemd-юниты в `configs/systemd/`. **Windows (v0.2.0+)** — готовая сборка (`cascade.exe` + `cascade-router.exe`), в комплекте `sing-box.exe`, мастер первого запуска, `START-Cascade.cmd`, менеджер туннеля `builtin`. Установка сервисов вне macOS — вручную (systemd / Планировщик заданий / NSSM). Проект разрабатывается и покрыт регрессионными тестами на macOS; ядро шлюза на Linux и Windows ожидаемо работает, но живая регрессия — только macOS.
 
 **Безопасны ли мои ключи?** Они остаются локальными на бэкенде, который слушает только loopback; дашборд их не получает.
 

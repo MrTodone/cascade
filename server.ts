@@ -6,14 +6,17 @@ import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { vpnService } from "./server/vpnService";
 import { cascadeRouterProxy, ensureRouterDaemon, startRouterHealthLoop, restartRouterDaemon, stopRouterDaemon, CASCADE_ROUTER_PORT } from "./server/routerService";
-import { appPath, detectCompiled } from "./server/runtime";
+import { appPath, dataPath, detectCompiled } from "./server/runtime";
+import { secureFile } from "./server/secureFile";
 
 detectCompiled();
 // Compiled single-exe (cascade.exe) никогда не использует Vite dev-middleware —
 // только статику dist/ рядом с exe. Runtime-выбор делается входной точкой
 // (exe-entry / dev-entry), а не NODE_ENV-веткой, поэтому vite в бинарь не попадает.
 
-dotenv.config({ path: appPath(".env") });
+dotenv.config({ path: dataPath(".env") });
+secureFile(dataPath(".env"));
+secureFile(dataPath("cascade-run", "router", "config.json"));
 
 const app = express();
 const PORT = Number(process.env.CASCADE_PORT || process.env.PORT || 3000);
@@ -52,7 +55,7 @@ async function fetchActiveRouterSet(): Promise<{ provider: string; model: string
   }
   try {
     const fs = require("node:fs") as typeof import("node:fs");
-    const cfg = JSON.parse(fs.readFileSync(appPath("cascade-run", "router", "config.json"), "utf8"));
+    const cfg = JSON.parse(fs.readFileSync(dataPath("cascade-run", "router", "config.json"), "utf8"));
     const active = cfg?.router?.activeSet || "fast-coding";
     return (cfg?.router?.sets?.[active]?.models || []).map((m: any) => ({ provider: m.provider, model: m.model }));
   } catch {
@@ -121,7 +124,7 @@ interface RoutingOverride {
   pinnedPin: string | null;
   updatedAt: string;
 }
-const ROUTING_OVERRIDE_FILE = appPath("cascade-run", "routing-override.json");
+const ROUTING_OVERRIDE_FILE = dataPath("cascade-run", "routing-override.json");
 
 function readRoutingOverride(): RoutingOverride {
   try {
@@ -238,7 +241,7 @@ async function buildRoutingResponse() {
   const apiKeys: Record<string, string> = {};
   try {
     const fs = require("node:fs") as typeof import("node:fs");
-    const cfg = JSON.parse(fs.readFileSync(appPath("cascade-run", "router", "config.json"), "utf8"));
+    const cfg = JSON.parse(fs.readFileSync(dataPath("cascade-run", "router", "config.json"), "utf8"));
     Object.assign(apiKeys, cfg?.apiKeys || {});
   } catch { /* без ключей — все hasApiKey=false */ }
 
@@ -1556,7 +1559,7 @@ const SETUP_FACADE_ENV: Record<string, string> = {
 };
 
 function readRouterConfigRaw(): { exists: boolean; cfg: any } {
-  const p = appPath("cascade-run", "router", "config.json");
+  const p = dataPath("cascade-run", "router", "config.json");
   try {
     return { exists: true, cfg: JSON.parse(fs.readFileSync(p, "utf8")) };
   } catch {
@@ -1662,14 +1665,16 @@ app.post("/api/setup/apply", async (req, res) => {
       router: { ...(typeof example?.router === "object" ? example.router : {}), ...(typeof base?.router === "object" ? base.router : {}) },
     };
 
-    writeJsonAtomic(appPath("cascade-run", "router", "config.json"), config);
+    writeJsonAtomic(dataPath("cascade-run", "router", "config.json"), config);
 
-    const envPath = appPath(".env");
+    const envPath = dataPath(".env");
     for (const prov of SETUP_PROVIDERS) {
       const envKey = SETUP_FACADE_ENV[prov];
       const v = nextApiKeys[prov];
       if (envKey && typeof v === "string" && v.trim().length > 0) upsertEnvKey(envPath, envKey, v.trim());
     }
+    secureFile(envPath);
+    secureFile(dataPath("cascade-run", "router", "config.json"));
 
     await restartRouterDaemon();
 
