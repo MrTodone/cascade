@@ -86,16 +86,24 @@ wizard** (`GET /api/setup/status` → `GET /api/setup/apply`); it writes
 `cascade-run/router/config.json` + `.env` from the values you paste, then
 restarts the router engine.
 
-### npm (prebuilt tarball, recommended)
+### npm (recommended)
 
-The published tarball ships a **prebuilt, dependency-free bundle** — installing it
+The published package ships a **prebuilt, dependency-free bundle** — installing it
 runs **no build step** and drags in **no build tooling** (no Vite, esbuild,
 TypeScript or Bun). Only **Node.js >= 22** is required.
 
+From the npm registry:
+
+```bash
+npm i -g @mrtodone/cascade
+cascade --version
+cascade start        # facade on http://127.0.0.1:3000, router on http://127.0.0.1:19080
+```
+
+The same package, direct from GitHub Releases:
+
 ```bash
 npm install -g https://github.com/MrTodone/cascade/releases/download/v0.4.0/cascade-npm-v0.4.0.tgz
-cascade --version
-cascade start        # facade on http://127.0.0.1:3000, router on 127.0.0.1:19080
 ```
 
 User data (config, `.env`, tunnel state) lives in `~/.cascade` and can be moved
@@ -152,6 +160,19 @@ child of the facade; `external` only probes an already-running tunnel. The activ
 manager is reported by `GET /api/vpn/status` → `manager`, and the dashboard
 **Stop** button (`POST /api/app/shutdown`) shuts down the router + tunnel and
 exits cleanly on every platform.
+
+### From source (for developers)
+
+For contributors only — end users should use the channels above. The build runs
+locally:
+
+```bash
+git clone https://github.com/MrTodone/cascade
+cd cascade
+npm install
+node scripts/build-npm.mjs
+node bin/cascade.js start      # or: npm link, then `cascade start`
+```
 
 
 Point your agent at `http://localhost:3000/v1` and you are done.

@@ -85,15 +85,23 @@ curl http://localhost:3000/v1/models
 
 Направьте агента на `http://localhost:3000/v1` — готово.
 
-### npm (готовая сборка, рекомендуется)
+### npm (рекомендуется)
 
-Публикуемый tarball содержит **готовый самодостаточный бандл** — установка **не запускает сборку** и
+Публикуемый пакет содержит **готовый самодостаточный бандл** — установка **не запускает сборку** и
 не тянет **инструменты сборки** (ни Vite, ни esbuild, ни TypeScript, ни Bun). Нужен только **Node.js >= 22**.
+
+Из реестра npm:
+
+```bash
+npm i -g @mrtodone/cascade
+cascade --version
+cascade start        # facade на http://127.0.0.1:3000, роутер на 127.0.0.1:19080
+```
+
+Тот же пакет напрямую из GitHub Releases:
 
 ```bash
 npm install -g https://github.com/MrTodone/cascade/releases/download/v0.4.0/cascade-npm-v0.4.0.tgz
-cascade --version
-cascade start        # facade на http://127.0.0.1:3000, роутер на 127.0.0.1:19080
 ```
 
 Данные пользователя (конфиг, `.env`, состояние туннеля) лежат в `~/.cascade` — каталог меняется
@@ -145,6 +153,18 @@ cd cascade-v0.3.0-linux-x64
 Windows/Linux; `builtin` поднимает встроенный sing-box дочерним процессом фасада; `external` только опрашивает
 уже запущенный туннель. Активный менеджер виден в `GET /api/vpn/status` → `manager`; кнопка **Стоп** в
 дашборде (`POST /api/app/shutdown`) корректно гасит роутер и туннель и завершает процесс на всех платформах.
+
+### Из исходников (для разработчиков)
+
+Только для контрибьюторов — конечным пользователям подходят каналы выше. Сборка выполняется локально:
+
+```bash
+git clone https://github.com/MrTodone/cascade
+cd cascade
+npm install
+node scripts/build-npm.mjs
+node bin/cascade.js start      # или: npm link, затем `cascade start`
+```
 
 ## Подключение агентов
 
