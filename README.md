@@ -121,6 +121,15 @@ docker run -d --name cascade \
 or, from the repo: `docker compose up -d`. User data is persisted on the `/data`
 volume (`CASCADE_HOME=/data`). Available tags: `latest`, `v0.4.0`, `0.4`.
 
+### Environment variables
+
+| Variable | Default | Description |
+|---|---|---|
+| `CASCADE_HOME` | `~/.cascade` | Directory holding config, `.env` and tunnel state. |
+| `CASCADE_PORT` | `3000` | Facade (HTTP API) port. `PORT` is honored as a fallback. |
+| `CASCADE_ROUTER_PORT` | `19080` | Router engine port (spawned by the facade). |
+| `CASCADE_DOCKER` | unset | Set to `1` in containers to skip host-side file-permission hardening (`secureFile`). |
+
 ### Prebuilt binaries (v0.4.0)
 
 Self-contained downloads — **no Bun/Node required** (the Bun runtime, the router
